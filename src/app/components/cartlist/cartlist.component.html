@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="table-wrapper">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Beschreibung</th>
+          <th scope="col">Betrag</th>
+          <th scope="col">Datum</th>
+          <th scope="col">Kategorie</th>
+          <th scope="col">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cart of cartlist; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{cart.userName}}</td>
+          <td>{{cart.description}}</td>
+          <td>{{cart.price | currency: 'EUR'}}</td>
+          <td>{{cart.datePurchased}}</td>
+          <td>{{cart.categoryName}}</td>
+          <td  colspan="2">
+            <div *ngIf="cart.userName == getCurrentUser()" class="d-flex justify-content-around">
+              <i class="fas fa-pen"></i>
+              <i class="far fa-trash-alt"></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary btn-sm" (click)="logOut()">LogOut</button>
+  </div>
+</div>

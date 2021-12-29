@@ -5,11 +5,14 @@
 }
 
 html > body {
-  background: linear-gradient(135deg, #222, #71b7e6);
+  // background: linear-gradient(135deg, #222, #71b7e6);
+  // background: linear-gradient(135deg, #291528, #3a3e3b);
+  // background: #3a3e3b;
+  background: #f4f3f6;
   display: flex;
   height: 100vh;
   justify-content: center;
-  align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  // align-items: center;
+  font-family: 'Nunito', sans-serif;
   font-size: small;
 }

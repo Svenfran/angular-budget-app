@@ -8,6 +8,7 @@ import { CartlistComponent } from './components/cartlist/cartlist.component';
 import { LoginFormularComponent } from './components/login-formular/login-formular.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
+import { ChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormularComponent},
@@ -26,7 +27,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]

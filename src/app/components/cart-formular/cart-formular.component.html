@@ -1,0 +1,58 @@
+<div class="col-xs-12 col-sm-12">
+  <div class="cart-form">
+    <form [formGroup]="cartForm" (ngSubmit)="onSubmit()" class="_form">
+      <h4 *ngIf="isAddMode" class="mt-0 text-center">Einkauf hinzufügen</h4>
+      <h4 *ngIf="!isAddMode" class="mt-0 text-center">Einkauf bearbeiten</h4>
+      <div class="row col-12">
+        <div class="form-group col mt-3">
+          <label>Beschreibung*</label>
+          <input formControlName="description" type="text" class="form-control">
+          <div *ngIf="description.invalid && description.touched">
+            <small *ngIf="description.errors.required" class="text-danger">{{emptyField}}</small>
+            <!-- <small *ngIf="lastName.errors.cannotContainSpace" class="text-danger">{{noSpace}}</small> -->
+          </div>
+        </div>
+
+        <div class="form-group col mt-3">
+          <label>Betrag in €*</label>
+          <input formControlName="price" type="text" class="form-control">
+          <div *ngIf="price.invalid && price.touched">
+            <small *ngIf="price.errors.required" class="text-danger">{{emptyField}}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row col-12">
+        <div class="form-group col mt-3">
+          <label>Kategorie*</label>
+          <select formControlName="categoryName" type="text" class="form-control">
+            <option></option>
+            <option *ngFor="let category of categories">{{category.name}}</option>
+          </select>
+          <div *ngIf="categoryName.invalid && categoryName.touched">
+            <small *ngIf="categoryName.errors.required" class="text-danger">{{emptyField}}</small>
+          </div>
+        </div>
+
+        <div class="form-group col mt-3">
+          <label>Datum*</label>
+          <input formControlName="datePurchased" type="text" class="form-control">
+          <div *ngIf="datePurchased.invalid && (datePurchased.dirty || datePurchased.touched)">
+            <small *ngIf="datePurchased.errors.required" class="text-danger">{{emptyField}}</small>
+            <small *ngIf="datePurchased.errors.pattern" class="text-danger">Datumsformat beachten: dd.mm.yyyy</small>
+          </div>
+        </div>
+      </div>
+    
+      <div class="d-flex justify-content-between">
+        <div class="d-flex mt-4">
+          <button [disabled]="!cartForm.valid" class="btn btn-primary btn-sm" type="submit">Submit</button>
+          <!-- <div class="icon" (click)="loadData()" style="margin-left: 18px;">
+            <i class="fas fa-redo-alt"></i>
+          </div> -->
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

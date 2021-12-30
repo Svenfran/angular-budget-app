@@ -9,10 +9,13 @@ import { LoginFormularComponent } from './components/login-formular/login-formul
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 import { ChartsModule } from 'ng2-charts';
+import { CartFormularComponent } from './components/cart-formular/cart-formular.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormularComponent},
   { path: 'budget-app/cartlist', component: CartlistComponent, canActivate:[AuthGuardService]},
+  { path: 'budget-app/cartlist/add', component: CartFormularComponent, canActivate:[AuthGuardService]},
+  { path: 'budget-app/cartlist/edit/:id', component: CartFormularComponent, canActivate:[AuthGuardService]},
   { path: '', redirectTo: '/budget-app/cartlist', pathMatch: 'full'},
   { path: '**', redirectTo: '/budget-app/cartlist', pathMatch: 'full'}
 ]
@@ -21,7 +24,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginFormularComponent,
-    CartlistComponent
+    CartlistComponent,
+    CartFormularComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

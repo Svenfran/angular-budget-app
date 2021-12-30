@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseChartDirective } from 'ng2-charts';
 import { Cart } from 'src/app/models/cart';
 import { UserSpendings } from 'src/app/models/user-spendings';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
@@ -15,6 +17,9 @@ export class CartlistComponent implements OnInit {
   userWithDeptMonth: UserSpendings[] = [];
   userWithDeptYear: UserSpendings[] = [];
 
+  @ViewChild(BaseChartDirective)
+  public chart: BaseChartDirective;
+
   constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
 
   ngOnInit() {
@@ -22,6 +27,8 @@ export class CartlistComponent implements OnInit {
       this.listCarts();
       this.getUserWithDeptMonth();
       this.getUserWithDeptYear();
+      this.getChartDataYear();
+      this.getCurrentMonth();
     });
   }
 
@@ -59,7 +66,7 @@ export class CartlistComponent implements OnInit {
       data => {
         // chartMonth.push(data[0].currentMonth);
         for (let i = 0; i < data.length; i++) {
-          chartUserNames.push(data[i].userName);
+          chartUserNames.push(this.capitalize(data[i].userName));
           chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
 
           if (data[i].userName == "sven") {
@@ -84,7 +91,7 @@ export class CartlistComponent implements OnInit {
       data => {
         // chartMonth.push(data[0].currentMonth);
         for (let i = 0; i < data.length; i++) {
-          chartUserNames.push(data[i].userName);
+          chartUserNames.push(this.capitalize(data[i].userName));
           chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
   
           if (data[i].userName == "sven") {
@@ -97,6 +104,10 @@ export class CartlistComponent implements OnInit {
     )  
     // console.log(chartMonth);
     return { chartUserNames, chartSpendings, chartColors };
+  }
+
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   getCurrentUser() {
@@ -114,6 +125,20 @@ export class CartlistComponent implements OnInit {
   logOut() {
     sessionStorage.removeItem('userName');
     this.router.navigate(['login']);
+  }
+
+  onDelete(cartId: number, cartPrice: number) {
+    if (confirm(`Delete Cart €${cartPrice}?`)) {
+      this.cartService.deleteCart(cartId).subscribe(
+        (data: void) => {
+          this.ngOnInit();
+          // window.location.reload(); // lädt die komplette Seite. Nicht optimal! Nur Chart soll aktualisiert werden
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    }
   }
 
   //-----Charts-----------

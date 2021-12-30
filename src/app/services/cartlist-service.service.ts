@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cart } from '../models/cart';
+import { Category } from '../models/category';
 import { UserSpendings } from '../models/user-spendings'
 
 @Injectable({
@@ -14,6 +15,11 @@ export class CartlistServiceService {
   private cartlistUrl = `${this.apiBaseUrl}/api/cartlist`;
   private userSpendingsMonthUrl = `${this.apiBaseUrl}/api/cartlist/user-spendings-month`;
   private userSpendingsYearUrl = `${this.apiBaseUrl}/api/cartlist/user-spendings-year`;
+  private deleteCartUrl = `${this.apiBaseUrl}/api/cartlist/delete`;
+  private categoriesUrl = `${this.apiBaseUrl}/api/categories`;
+  private addCartUrl = `${this.apiBaseUrl}/api/cartlist/add`;
+  private updateCartUrl = `${this.apiBaseUrl}/api/cartlist/update`;
+  private getCartByIdUrl = `${this.apiBaseUrl}/api/cartlist`;
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +33,26 @@ export class CartlistServiceService {
   
   getUserSpendingsYear(): Observable<UserSpendings[]> {
     return this.http.get<UserSpendings[]>(this.userSpendingsYearUrl);
+  }
+
+  deleteCart(cartId: number): Observable<void> {
+    const deleteCartUrl = `${this.deleteCartUrl}/${cartId}`;
+    return this.http.delete<void>(deleteCartUrl);
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.categoriesUrl);
+  }
+
+  addCart(cart: Cart): Observable<Cart> {
+    return this.http.post<Cart>(this.addCartUrl, cart);
+  }
+
+  updateCart(cart: Cart): Observable<Cart> {
+    return this.http.put<Cart>(this.updateCartUrl, cart);
+  }
+
+  getCartById(cartId: String): Observable<Cart> {
+    return this.http.get<Cart>(`${this.getCartByIdUrl}/${cartId}`);
   }
 }

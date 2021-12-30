@@ -2,33 +2,29 @@
   display: flex;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
   padding: 32px;
   margin: 32px 0;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #222;
+  }
 }
 
 .chart-wrapper {
   display: flex;
   justify-content: center;
-  margin: 16px 0 16px;
+  margin: 16px auto;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
   padding: 16px 0;
 }
 
 
 .diff {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-  padding: 16px 0;
-  margin-top: 16px;
   h6 {
     margin: 0;
     font-weight: bold;
@@ -39,17 +35,95 @@
     padding: 4px 6px;
     color: white;
     margin-top: 4px;
+    width: fit-content;
   }
 }
 
 .diff-montse {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
   p {
     background-color: #8e5ea2;
   }
 }
 
 .diff-sven {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
   p {
     background-color: #5DA7D5;
+  }
+}
+
+.add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #222;
+  border-radius: 50%;
+}
+
+.plus-symbol {
+  position: relative;
+  width: max-content;
+  left: 47.6%;
+  top: 15px;
+  cursor: pointer;
+}
+
+.diff-wrapper-month {
+  position: relative;
+  width: max-content;
+  height: fit-content;
+  left: 18.8%;
+  top: -115px;
+}
+
+.diff-wrapper-year {
+  position: relative;
+  width: max-content;
+  height: fit-content;
+  left: 70%;
+  top: -176px;
+}
+
+canvas.chart {
+  position: relative; 
+  z-index:1;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+  margin: 0 auto;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  margin: 0 auto;
+}
+
+@media(max-width: 768px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .diff-wrapper-month {
+    left: 45.3%;
+    top: -345px;
+  }
+ 
+  .diff-wrapper-year {
+    left: 43.3%;
   }
 }

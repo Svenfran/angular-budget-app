@@ -1,3 +1,16 @@
+.parent {
+  position: relative;
+}
+
+.child-1, .child-2 {
+  width: 250px;
+  position: absolute;
+}
+
+.child-2 {
+  top: 100px;
+}
+
 .table-wrapper {
   display: flex;
   background-color: white;
@@ -28,6 +41,7 @@
   h6 {
     margin: 0;
     font-weight: bold;
+    font-size: small;
   }
   p {
     font-size: smaller;
@@ -78,44 +92,38 @@
   cursor: pointer;
 }
 
-.diff-wrapper-month {
-  position: relative;
-  width: max-content;
-  height: fit-content;
-  left: 18.8%;
-  top: -115px;
-}
-
-.diff-wrapper-year {
-  position: relative;
-  width: max-content;
-  height: fit-content;
-  left: 70%;
-  top: -176px;
-}
-
 canvas.chart {
-  position: relative; 
+  // position: relative; 
   z-index:1;
 }
 
 .chart-grid {
+  height: 200px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 10px;
   margin: 0 auto;
+}
+
+.chart-grid-parent {
+  display: block;
 }
 
 .table-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 16px;
   margin: 0 auto;
 }
 
 @media(max-width: 768px) {
   .chart-grid {
     grid-template-columns: 1fr;
+    height: 400px;
+  }
+
+  .chart-grid-parent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
   
   .diff-wrapper-month {

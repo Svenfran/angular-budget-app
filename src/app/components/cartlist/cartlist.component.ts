@@ -27,8 +27,6 @@ export class CartlistComponent implements OnInit {
       this.listCarts();
       this.getUserWithDeptMonth();
       this.getUserWithDeptYear();
-      this.getChartDataYear();
-      this.getCurrentMonth();
     });
   }
 
@@ -69,11 +67,11 @@ export class CartlistComponent implements OnInit {
           chartUserNames.push(this.capitalize(data[i].userName));
           chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
 
-          if (data[i].userName == "sven") {
-            chartColors.push('#5da7d5');
-          } else {
-            chartColors.push('#8e5ea2');
-          }
+          // if (data[i].userName == "sven") {
+          //   chartColors.push('#5da7d5');
+          // } else {
+          //   chartColors.push('#8e5ea2');
+          // }
         };
       }
     )
@@ -94,11 +92,11 @@ export class CartlistComponent implements OnInit {
           chartUserNames.push(this.capitalize(data[i].userName));
           chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
   
-          if (data[i].userName == "sven") {
-            chartColors.push('#5da7d5');
-          } else {
-            chartColors.push('#8e5ea2');
-          }
+          // if (data[i].userName == "sven") {
+          //   chartColors.push('#5da7d5');
+          // } else {
+          //   chartColors.push('#8e5ea2');
+          // }
         };
       }
     )  
@@ -148,7 +146,7 @@ export class CartlistComponent implements OnInit {
   public doughnutChartType = 'doughnut';
   public doughnutChartColors: Array<any> = [
     {
-      backgroundColor: this.getChartDataMonth().chartColors,
+      backgroundColor: ['#8e5ea2', '#5da7d5'],
       borderWidth: 0
     }
   ];
@@ -167,7 +165,7 @@ export class CartlistComponent implements OnInit {
   public doughnutChartTypeYear = 'doughnut';
   public doughnutChartColorsYear: Array<any> = [
     {
-      backgroundColor: this.getChartDataYear().chartColors,
+      backgroundColor: ['#8e5ea2', '#5da7d5'],
       borderWidth: 0
     }
   ];

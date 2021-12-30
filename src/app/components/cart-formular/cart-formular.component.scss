@@ -13,3 +13,10 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.submit {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin-top: 32px;
+}

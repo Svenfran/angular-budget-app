@@ -1,49 +1,48 @@
-<div class="chart-grid-parent">
-  <div class="chart-grid">
-    <div class="parent">
-      <div class="child-1">
-        <div class="chart-wrapper">
-          <canvas class="chart" baseChart
-                  [data]="doughnutChartData"
-                  [labels]="doughnutChartLabels"
-                  [chartType]="doughnutChartType"
-                  [options]="doughnutChartOptions"
-                  [colors]="doughnutChartColors">
-          </canvas>
-        </div>
+<div class="chart-grid">
+  <div class="parent">
+    <div class="child-1">
+      <div class="chart-wrapper">
+        <canvas class="chart" baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                [options]="doughnutChartOptions"
+                [colors]="doughnutChartColors">
+        </canvas>
       </div>
-      <div class="child-2">
-        <div class="diff">
-          <div *ngFor="let user of userWithDeptMonth" class="diff-{{user.userName}}">
-            <h6>{{user.diff | number: '1.2-2'}}€</h6>
-            <p>{{user.userName | titlecase}}</p>
-          </div>
+    </div>
+    <div class="child-2">
+      <div class="diff">
+        <div *ngFor="let user of userWithDeptMonth" class="diff-{{user.userName}}">
+          <h6>{{user.diff | number: '1.2-2'}}€</h6>
+          <p>{{user.userName | titlecase}}</p>
         </div>
       </div>
     </div>
-    <div class="parent">
-      <div class="child-1">
-        <div class="chart-wrapper">
-          <canvas class="chart" baseChart
-                  [data]="doughnutChartDataYear"
-                  [labels]="doughnutChartLabelsYear"
-                  [chartType]="doughnutChartTypeYear"
-                  [options]="doughnutChartOptionsYear"
-                  [colors]="doughnutChartColorsYear">
-          </canvas>
-        </div>
+  </div>
+  <div class="parent">
+    <div class="child-1">
+      <div class="chart-wrapper">
+        <canvas class="chart" baseChart
+                [data]="doughnutChartDataYear"
+                [labels]="doughnutChartLabelsYear"
+                [chartType]="doughnutChartTypeYear"
+                [options]="doughnutChartOptionsYear"
+                [colors]="doughnutChartColorsYear">
+        </canvas>
       </div>
-      <div class="child-2">
-        <div class="diff">
-          <div *ngFor="let user of userWithDeptYear" class="diff-{{user.userName}}">
-            <h6>{{user.diff | number: '1.2-2'}}€</h6>
-            <p>{{user.userName | titlecase}}</p>
-          </div>
+    </div>
+    <div class="child-2">
+      <div class="diff">
+        <div *ngFor="let user of userWithDeptYear" class="diff-{{user.userName}}">
+          <h6>{{user.diff | number: '1.2-2'}}€</h6>
+          <p>{{user.userName | titlecase}}</p>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <div [routerLink]="['add']" class="plus-symbol">
   <div class="add">
@@ -52,7 +51,7 @@
 </div>
 
 
-<div style="display: none;" class="table-wrapper table-grid mb-3">
+<div style="display: none;" class="table-wrapper mb-3">
   <table class="table table-sm">
     <thead>
       <tr>
@@ -77,7 +76,7 @@
   </table>
 </div>
 
-<div class="table-wrapper table-grid mb-3">
+<div class="table-wrapper">
   <table class="table table-sm">
     <thead>
       <tr>
@@ -111,5 +110,5 @@
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-primary btn-sm" (click)="logOut()">Logout</button>
+  <button class="btn btn-primary btn-sm" (click)="exportExcel()">Excel Export</button>
 </div>

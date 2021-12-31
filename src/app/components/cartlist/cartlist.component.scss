@@ -1,5 +1,7 @@
 .parent {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .child-1, .child-2 {
@@ -14,10 +16,11 @@
 .table-wrapper {
   display: flex;
   background-color: white;
+  flex-direction: column;
   border-radius: 5px;
   box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
   padding: 32px;
-  margin: 32px 0;
+  margin: 16px 0;
   a {
     cursor: pointer;
     text-decoration: none;
@@ -88,13 +91,17 @@
   position: relative;
   width: max-content;
   left: 47.6%;
-  top: 15px;
+  top: 30px;
   cursor: pointer;
 }
 
 canvas.chart {
   // position: relative; 
   z-index:1;
+}
+
+tr td {
+  max-width: 150px;
 }
 
 .chart-grid {
@@ -105,33 +112,9 @@ canvas.chart {
   margin: 0 auto;
 }
 
-.chart-grid-parent {
-  display: block;
-}
-
-.table-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin: 0 auto;
-}
-
 @media(max-width: 768px) {
   .chart-grid {
     grid-template-columns: 1fr;
     height: 400px;
-  }
-
-  .chart-grid-parent {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .diff-wrapper-month {
-    left: 45.3%;
-    top: -345px;
-  }
- 
-  .diff-wrapper-year {
-    left: 43.3%;
   }
 }

@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, SimpleChange, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
 import { Cart } from 'src/app/models/cart';
 import { UserSpendings } from 'src/app/models/user-spendings';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 
 @Component({
   selector: 'app-cartlist',
@@ -17,8 +19,8 @@ export class CartlistComponent implements OnInit {
   userWithDeptMonth: UserSpendings[] = [];
   userWithDeptYear: UserSpendings[] = [];
 
-  @ViewChild(BaseChartDirective)
-  public chart: BaseChartDirective;
+  @ViewChild(BaseChartDirective) 
+  private charts: QueryList<BaseChartDirective>;
 
   constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
 
@@ -28,6 +30,7 @@ export class CartlistComponent implements OnInit {
       this.getUserWithDeptMonth();
       this.getUserWithDeptYear();
     });
+
   }
 
   listCarts() {
@@ -57,7 +60,7 @@ export class CartlistComponent implements OnInit {
   getChartDataMonth() {
     const chartUserNames: string[] = [];
     const chartSpendings: number[] = [];
-    const chartColors: string[] = [];
+    // const chartColors: string[] = [];
     // const chartMonth: string[] = [];
 
     this.cartService.getUserSpendings().subscribe(
@@ -76,13 +79,13 @@ export class CartlistComponent implements OnInit {
       }
     )
     // console.log(chartMonth);
-    return { chartUserNames, chartSpendings, chartColors };
+    return { chartUserNames, chartSpendings };
   }
 
   getChartDataYear() {
     const chartUserNames: string[] = [];
     const chartSpendings: number[] = [];
-    const chartColors: string[] = [];
+    // const chartColors: string[] = [];
     // const chartMonth: string[] = []; // not working, cannot access String in Array??
 
     this.cartService.getUserSpendingsYear().subscribe(
@@ -101,7 +104,7 @@ export class CartlistComponent implements OnInit {
       }
     )  
     // console.log(chartMonth);
-    return { chartUserNames, chartSpendings, chartColors };
+    return { chartUserNames, chartSpendings };
   }
 
   capitalize(str) {
@@ -137,6 +140,32 @@ export class CartlistComponent implements OnInit {
         }
       );
     }
+  }
+
+  exportExcel() {
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Ausgaben');
+
+    worksheet.columns = [
+      { header: 'Name', key: 'userName', width: 10 },
+      { header: 'Beschreibung', key: 'description', width: 32 },
+      { header: 'Datum', key: 'datePurchased', width: 10 },
+      { header: 'Betrag', key: 'price', width: 10 },
+      { header: 'Kategorie', key: 'categoryName', width: 10 },
+    ];
+
+    this.cartlist.forEach(cart => {
+      worksheet.addRow({userName: cart.userName,
+                        description: cart.description,
+                        datePurchased: cart.datePurchased,
+                        price: cart.price,
+                        categoryName: cart.categoryName}, "n");
+    })
+ 
+    workbook.xlsx.writeBuffer().then((cartlist) => {
+      let blob = new Blob([cartlist], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'Ausgaben.xlsx');
+    })
   }
 
   //-----Charts-----------

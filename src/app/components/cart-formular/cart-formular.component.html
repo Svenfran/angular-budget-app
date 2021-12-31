@@ -16,8 +16,9 @@
         <div class="form-group col mt-3">
           <label>Betrag in €*</label>
           <input formControlName="price" type="text" class="form-control">
-          <div *ngIf="price.invalid && price.touched">
+          <div *ngIf="price.invalid && (price.dirty || price.touched)">
             <small *ngIf="price.errors.required" class="text-danger">{{emptyField}}</small>
+            <small *ngIf="price.errors.pattern" class="text-danger">Dezimalstelle mit Punkt trennen: xx.yy</small>
           </div>
         </div>
       </div>

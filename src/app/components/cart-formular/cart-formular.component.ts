@@ -26,7 +26,7 @@ export class CartFormularComponent implements OnInit {
     this.cartForm = this.fb.group({
       id:[''],
       description: ['',[ Validators.required ]],
-      price: ['',[ Validators.required ]],
+      price: ['',[ Validators.required, Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
       datePurchased: ['',[ Validators.required, Validators.pattern('(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}')]],
       categoryName: ['',[ Validators.required ]],
     })

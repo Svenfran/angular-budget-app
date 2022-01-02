@@ -1,0 +1,13 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+  padding: 16px 32px;
+  margin-bottom: 16px;
+  p {
+    margin: 0;
+    cursor: pointer;
+  }
+}

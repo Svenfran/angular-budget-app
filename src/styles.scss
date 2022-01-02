@@ -5,8 +5,6 @@
 }
 
 html > body {
-  // background: linear-gradient(135deg, #222, #71b7e6);
-  // background: linear-gradient(135deg, #291528, #3a3e3b);
   // background: #3a3e3b;
   background: #f4f3f6;
   display: flex;
@@ -15,4 +13,122 @@ html > body {
   // align-items: center;
   font-family: 'Nunito', sans-serif;
   font-size: small;
+}
+
+.parent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.child-1, .child-2 {
+  width: 250px;
+  position: absolute;
+}
+
+.child-2 {
+  top: 100px;
+}
+
+.table-wrapper {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+  padding: 32px;
+  margin: 16px 0;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #222;
+  }
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 16px auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+  padding: 16px 0;
+}
+
+
+.diff {
+  text-align: center;
+  h6 {
+    margin: 0;
+    font-weight: bold;
+    font-size: small;
+  }
+  p {
+    font-size: smaller;
+    border-radius: 3px;
+    padding: 4px 6px;
+    color: white;
+    margin-top: 4px;
+    width: fit-content;
+  }
+}
+
+.diff-montse {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  p {
+    background-color: #8e5ea2;
+  }
+}
+
+.diff-sven {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  p {
+    background-color: #5DA7D5;
+  }
+}
+
+.add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #222;
+  border-radius: 50%;
+}
+
+.plus-symbol {
+  position: relative;
+  width: max-content;
+  left: 47.6%;
+  top: 30px;
+  cursor: pointer;
+}
+
+canvas.chart {
+  // position: relative; 
+  z-index:1;
+}
+
+.chart-grid {
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin: 0 auto;
+}
+
+@media(max-width: 768px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+    height: 400px;
+  }
+
 }

@@ -10,14 +10,17 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AuthHttpInterceptorService } from './services/auth-http-interceptor.service';
 import { ChartsModule } from 'ng2-charts';
 import { CartFormularComponent } from './components/cart-formular/cart-formular.component';
+import { SpendingsOverviewComponent } from './components/spendings-overview/spendings-overview.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormularComponent},
+  { path: 'budget-app/spendings', component: SpendingsOverviewComponent, canActivate:[AuthGuardService]},
+  { path: 'budget-app/spendings/add', component: CartFormularComponent, canActivate:[AuthGuardService]},
+  { path: 'budget-app/spendings/edit/:id', component: CartFormularComponent, canActivate:[AuthGuardService]},
   { path: 'budget-app/cartlist', component: CartlistComponent, canActivate:[AuthGuardService]},
-  { path: 'budget-app/cartlist/add', component: CartFormularComponent, canActivate:[AuthGuardService]},
-  { path: 'budget-app/cartlist/edit/:id', component: CartFormularComponent, canActivate:[AuthGuardService]},
-  { path: '', redirectTo: '/budget-app/cartlist', pathMatch: 'full'},
-  { path: '**', redirectTo: '/budget-app/cartlist', pathMatch: 'full'}
+  { path: '', redirectTo: '/budget-app/spendings', pathMatch: 'full'},
+  { path: '**', redirectTo: '/budget-app/spendings', pathMatch: 'full'}
 ]
 
 @NgModule({
@@ -25,7 +28,9 @@ const routes: Routes = [
     AppComponent,
     LoginFormularComponent,
     CartlistComponent,
-    CartFormularComponent
+    CartFormularComponent,
+    SpendingsOverviewComponent,
+    FooterComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

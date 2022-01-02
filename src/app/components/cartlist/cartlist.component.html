@@ -1,87 +1,7 @@
-<div class="chart-grid">
-  <div class="parent">
-    <div class="child-1">
-      <div class="chart-wrapper">
-        <canvas class="chart" baseChart
-                [data]="doughnutChartData"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [options]="doughnutChartOptions"
-                [colors]="doughnutChartColors">
-        </canvas>
-      </div>
-    </div>
-    <div class="child-2">
-      <div class="diff">
-        <div *ngFor="let user of userWithDeptMonth" class="diff-{{user.userName}}">
-          <h6>{{user.diff | number: '1.2-2'}}€</h6>
-          <p>{{user.userName | titlecase}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="parent">
-    <div class="child-1">
-      <div class="chart-wrapper">
-        <canvas class="chart" baseChart
-                [data]="doughnutChartDataYear"
-                [labels]="doughnutChartLabelsYear"
-                [chartType]="doughnutChartTypeYear"
-                [options]="doughnutChartOptionsYear"
-                [colors]="doughnutChartColorsYear">
-        </canvas>
-      </div>
-    </div>
-    <div class="child-2">
-      <div class="diff">
-        <div *ngFor="let user of userWithDeptYear" class="diff-{{user.userName}}">
-          <h6>{{user.diff | number: '1.2-2'}}€</h6>
-          <p>{{user.userName | titlecase}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div [routerLink]="['add']" class="plus-symbol">
+<div [routerLink]="['/budget-app/spendings/add']" class="plus-symbol">
   <div class="add">
     <i class="fas fa-plus"></i>
   </div>
-</div>
-
-
-<div class="table-wrapper mb-3">
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <!-- <th scope="col">#</th> -->
-        <th scope="col">Monat</th>
-        <th scope="col">Sven</th>
-        <th scope="col">Montse</th>
-        <th scope="col">Diff-Sven</th>
-        <th scope="col">Diff-Montse</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let cart of userSpendingsMonthly, let i = index">
-        <!-- <th>{{i + 1}}</th> -->
-        <td>{{cart.month}}</td>
-        <td>{{cart.sumSven | number: '1.2-2'}}€</td>
-        <td>{{cart.sumMontse | number: '1.2-2'}}€</td>
-        <td *ngIf="cart.diffSven < 0">{{cart.diffSven | number: '1.2-2'}}€</td>
-        <td *ngIf="cart.diffSven >= 0">--</td>
-        <td *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
-        <td *ngIf="cart.diffMontse >= 0">--</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="footer">
-  <p>My Carts</p>
-  <p>All Carts</p>
-  <p (click)="logOut()">Logout</p>
 </div>
 
 <div class="table-wrapper">
@@ -107,7 +27,7 @@
         <td>{{cart.categoryName}}</td>
         <td  colspan="2">
           <div *ngIf="cart.userName == getCurrentUser()" class="d-flex justify-content-around">
-            <a [routerLink]="['edit/', cart.id]">
+            <a [routerLink]="['/budget-app/spendings/edit/', cart.id]">
               <i class="fas fa-pen"></i>
             </a>
             <a (click)="onDelete(cart.id, cart.price)">
@@ -120,3 +40,5 @@
   </table>
   <button class="btn btn-primary btn-sm" (click)="exportExcel()">Excel Export</button>
 </div>
+
+<app-footer></app-footer>

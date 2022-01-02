@@ -45,11 +45,8 @@
         </div>
       </div>
       <div class="submit">
-        <div [routerLink]="['cartlist']" style="cursor: pointer;"><small><< BACK</small></div> 
+        <div [routerLink]="['/budget-app/cartlist']" style="cursor: pointer;"><small><< BACK</small></div> 
         <button [disabled]="!cartForm.valid" class="btn btn-primary btn-sm" type="submit">Submit</button>
-        <!-- <div class="icon" (click)="loadData()" style="margin-left: 18px;">
-          <i class="fas fa-redo-alt"></i>
-        </div> -->
       </div>
     </form>
   </div>

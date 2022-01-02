@@ -7,6 +7,7 @@ import { UserSpendings } from 'src/app/models/user-spendings';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { UserSpendingsMonthly } from 'src/app/models/user-spendings-monthly';
 
 @Component({
   selector: 'app-cartlist',
@@ -18,6 +19,9 @@ export class CartlistComponent implements OnInit {
   cartlist: Cart[] = [];
   userWithDeptMonth: UserSpendings[] = [];
   userWithDeptYear: UserSpendings[] = [];
+  userSpendingsMonthly: UserSpendingsMonthly[] = [];
+  months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
   @ViewChild(BaseChartDirective) 
   private charts: QueryList<BaseChartDirective>;
@@ -29,6 +33,7 @@ export class CartlistComponent implements OnInit {
       this.listCarts();
       this.getUserWithDeptMonth();
       this.getUserWithDeptYear();
+      this.getMonthlySpendings();
     });
 
   }
@@ -57,53 +62,42 @@ export class CartlistComponent implements OnInit {
     );
   }
   
+  getMonthlySpendings() {
+    this.cartService.getSpendingsMonthly().subscribe(
+      data => {
+        this.userSpendingsMonthly = data.filter(e => e.month <= (this.getCurrentMonth() + 1))
+        // console.log(this.userSpendingsMonthly);
+      }
+    );
+  }
+
   getChartDataMonth() {
     const chartUserNames: string[] = [];
     const chartSpendings: number[] = [];
-    // const chartColors: string[] = [];
-    // const chartMonth: string[] = [];
 
     this.cartService.getUserSpendings().subscribe(
       data => {
-        // chartMonth.push(data[0].currentMonth);
         for (let i = 0; i < data.length; i++) {
           chartUserNames.push(this.capitalize(data[i].userName));
           chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
-
-          // if (data[i].userName == "sven") {
-          //   chartColors.push('#5da7d5');
-          // } else {
-          //   chartColors.push('#8e5ea2');
-          // }
         };
       }
     )
-    // console.log(chartMonth);
     return { chartUserNames, chartSpendings };
   }
 
   getChartDataYear() {
     const chartUserNames: string[] = [];
     const chartSpendings: number[] = [];
-    // const chartColors: string[] = [];
-    // const chartMonth: string[] = []; // not working, cannot access String in Array??
 
     this.cartService.getUserSpendingsYear().subscribe(
       data => {
-        // chartMonth.push(data[0].currentMonth);
         for (let i = 0; i < data.length; i++) {
           chartUserNames.push(this.capitalize(data[i].userName));
           chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
-  
-          // if (data[i].userName == "sven") {
-          //   chartColors.push('#5da7d5');
-          // } else {
-          //   chartColors.push('#8e5ea2');
-          // }
         };
       }
     )  
-    // console.log(chartMonth);
     return { chartUserNames, chartSpendings };
   }
 
@@ -115,12 +109,14 @@ export class CartlistComponent implements OnInit {
     return sessionStorage.getItem('userName');
   }
 
-  getCurrentMonth(): String {
-    const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-                    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-
+  getCurrentMonth() {
     const today = new Date();
-    return months[today.getMonth()];
+    return today.getMonth();
+  }
+
+  getCurrentYear() {
+    const today = new Date();
+    return today.getFullYear();
   }
 
   logOut() {
@@ -185,7 +181,7 @@ export class CartlistComponent implements OnInit {
     cutoutPercentage: '85',
     legend: false,
     // legend: { position: 'bottom' },
-    title: { display: true, text: this.getCurrentMonth()}
+    title: { display: true, text: this.months[this.getCurrentMonth()] + " " + this.getCurrentYear()}
   };
 
   // Year
@@ -204,7 +200,7 @@ export class CartlistComponent implements OnInit {
     cutoutPercentage: '85',
     legend: false,
     // legend: { position: 'bottom' },
-    title: { display: true, text: 'Jan - ' + this.getCurrentMonth().substring(0, 3)}
+    title: { display: true, text: 'Jan - ' + this.months[this.getCurrentMonth()].substring(0, 3) + " " + this.getCurrentYear() }
   };
 
 

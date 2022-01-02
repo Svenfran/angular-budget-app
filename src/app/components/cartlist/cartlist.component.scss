@@ -104,6 +104,19 @@ tr td {
   max-width: 150px;
 }
 
+.footer {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+  padding: 16px 32px;
+  p {
+    margin: 0;
+    cursor: pointer;
+  }
+}
+
 .chart-grid {
   height: 200px;
   display: grid;
@@ -116,5 +129,15 @@ tr td {
   .chart-grid {
     grid-template-columns: 1fr;
     height: 400px;
+  }
+
+  tr td {
+    max-width: 100px;
+  }
+  // only for cartlist
+  tr th:nth-child(6),tr td:nth-child(6),
+  tr th:nth-child(2),tr td:nth-child(2),
+  tr th:nth-child(1),tr td:nth-child(1) {
+    display:none;
   }
 }

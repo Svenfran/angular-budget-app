@@ -51,11 +51,11 @@
 </div>
 
 
-<div style="display: none;" class="table-wrapper mb-3">
+<div class="table-wrapper mb-3">
   <table class="table table-sm">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <!-- <th scope="col">#</th> -->
         <th scope="col">Monat</th>
         <th scope="col">Sven</th>
         <th scope="col">Montse</th>
@@ -64,16 +64,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th>1</th>
-        <td>Januar</td>
-        <td>2345€</td>
-        <td>2543€</td>
-        <td>-99€</td>
-        <td>99€</td>
+      <tr *ngFor="let cart of userSpendingsMonthly, let i = index">
+        <!-- <th>{{i + 1}}</th> -->
+        <td>{{cart.month}}</td>
+        <td>{{cart.sumSven | number: '1.2-2'}}€</td>
+        <td>{{cart.sumMontse | number: '1.2-2'}}€</td>
+        <td *ngIf="cart.diffSven < 0">{{cart.diffSven | number: '1.2-2'}}€</td>
+        <td *ngIf="cart.diffSven >= 0">--</td>
+        <td *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
+        <td *ngIf="cart.diffMontse >= 0">--</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="footer">
+  <p>My Carts</p>
+  <p>All Carts</p>
+  <p (click)="logOut()">Logout</p>
 </div>
 
 <div class="table-wrapper">

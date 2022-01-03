@@ -12,6 +12,8 @@ import { ChartsModule } from 'ng2-charts';
 import { CartFormularComponent } from './components/cart-formular/cart-formular.component';
 import { SpendingsOverviewComponent } from './components/spendings-overview/spendings-overview.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { LoadingInterceptorService } from './services/loading-interceptor.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormularComponent},
@@ -30,7 +32,8 @@ const routes: Routes = [
     CartlistComponent,
     CartFormularComponent,
     SpendingsOverviewComponent,
-    FooterComponent
+    FooterComponent,
+    LoadingComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -39,7 +42,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     ChartsModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true},
+              {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

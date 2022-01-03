@@ -9,7 +9,6 @@
           <input formControlName="description" type="text" class="form-control">
           <div *ngIf="description.invalid && description.touched">
             <small *ngIf="description.errors.required" class="text-danger">{{emptyField}}</small>
-            <!-- <small *ngIf="lastName.errors.cannotContainSpace" class="text-danger">{{noSpace}}</small> -->
           </div>
         </div>
 

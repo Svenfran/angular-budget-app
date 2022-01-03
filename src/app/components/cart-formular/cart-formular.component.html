@@ -17,7 +17,7 @@
           <input formControlName="price" type="text" class="form-control">
           <div *ngIf="price.invalid && (price.dirty || price.touched)">
             <small *ngIf="price.errors.required" class="text-danger">{{emptyField}}</small>
-            <small *ngIf="price.errors.pattern" class="text-danger">Dezimalstelle mit Punkt trennen: xx.yy</small>
+            <small *ngIf="price.errors.pattern" class="text-danger">Dezimalstelle mit Punkt trennen: ##.##</small>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="submit">
-        <div [routerLink]="['/budget-app/cartlist']" style="cursor: pointer;"><small><< BACK</small></div> 
+        <div (click)="back()" style="cursor: pointer;"><small><< BACK</small></div> 
         <button [disabled]="!cartForm.valid" class="btn btn-primary btn-sm" type="submit">Submit</button>
       </div>
     </form>

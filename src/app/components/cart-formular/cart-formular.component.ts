@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
+import { Location } from '@angular/common';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
 
 @Component({
@@ -20,13 +21,14 @@ export class CartFormularComponent implements OnInit {
   cartId: String;
 
   constructor(private fb: FormBuilder, private cartService: CartlistServiceService,
-              private router: Router, private route: ActivatedRoute) { }
+              private router: Router, private route: ActivatedRoute,
+              private location: Location) { }
 
   ngOnInit(): void {
     this.cartForm = this.fb.group({
       id:[''],
       description: ['',[ Validators.required ]],
-      price: ['',[ Validators.required, Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]],
+      price: ['',[ Validators.required, Validators.pattern('[+-]?([0-9]*[.])?[0-9]+')]],
       datePurchased: ['',[ Validators.required, Validators.pattern('(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}')]],
       categoryName: ['',[ Validators.required ]],
     })
@@ -83,8 +85,8 @@ export class CartFormularComponent implements OnInit {
     );
   }
 
-  loadData() {
-    console.log("Load Data!!")
+  back(): void {
+    this.location.back();
   }
 
   getCategories() {

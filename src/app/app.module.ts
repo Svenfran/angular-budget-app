@@ -14,6 +14,7 @@ import { SpendingsOverviewComponent } from './components/spendings-overview/spen
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingInterceptorService } from './services/loading-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormularComponent},
@@ -40,7 +41,8 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true},
               {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true}],

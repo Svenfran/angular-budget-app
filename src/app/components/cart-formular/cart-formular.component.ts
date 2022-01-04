@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
 
 @Component({
@@ -19,10 +19,11 @@ export class CartFormularComponent implements OnInit {
   reqSuccess: boolean;
   isAddMode: boolean;
   cartId: String;
+  today = new Date();
 
   constructor(private fb: FormBuilder, private cartService: CartlistServiceService,
               private router: Router, private route: ActivatedRoute,
-              private location: Location) { }
+              private location: Location, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.cartForm = this.fb.group({
@@ -41,7 +42,15 @@ export class CartFormularComponent implements OnInit {
       this.cartService.getCartById(this.cartId)
       .pipe(first())
       .subscribe(data => this.cartForm.patchValue(data));
+    } else if (this.isAddMode) {
+      this.cartForm.patchValue({
+        datePurchased: this.getCurrentDate()
+      });
     }
+  }
+
+  getCurrentDate() {
+    return this.datePipe.transform(this.today, 'dd.MM.yyyy');
   }
 
   onSubmit() {

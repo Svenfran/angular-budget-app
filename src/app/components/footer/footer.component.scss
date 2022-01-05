@@ -6,8 +6,10 @@
   box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
   padding: 16px 32px;
   margin-bottom: 16px;
-  p {
+  p, i {
     margin: 0;
     cursor: pointer;
+    font-size: 16px;
+    color: #444;
   }
 }

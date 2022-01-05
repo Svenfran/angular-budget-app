@@ -16,6 +16,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingInterceptorService } from './services/loading-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
+import { AssetlistComponent } from './components/assetlist/assetlist.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormularComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'budget-app/spendings/add', component: CartFormularComponent, canActivate:[AuthGuardService]},
   { path: 'budget-app/spendings/edit/:id', component: CartFormularComponent, canActivate:[AuthGuardService]},
   { path: 'budget-app/cartlist', component: CartlistComponent, canActivate:[AuthGuardService]},
+  { path: 'budget-app/assetlist', component: AssetlistComponent, canActivate:[AuthGuardService]},
   { path: '', redirectTo: '/budget-app/spendings', pathMatch: 'full'},
   { path: '**', redirectTo: '/budget-app/spendings', pathMatch: 'full'}
 ]
@@ -35,7 +37,8 @@ const routes: Routes = [
     CartFormularComponent,
     SpendingsOverviewComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    AssetlistComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

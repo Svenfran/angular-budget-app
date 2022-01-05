@@ -1,0 +1,27 @@
+<div class="table-wrapper">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Asset</th>
+        <th scope="col">Value</th>
+        <th scope="col">Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asset of assetlist; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{asset.name}}</td>
+        <td *ngIf="asset.name != 'Gold/Silber Ratio'">{{asset.amount | currency: 'EUR'}}</td>
+        <td *ngIf="asset.name == 'Gold/Silber Ratio'">{{asset.amount | number: '1.0-0'}}</td>
+        <td class="text-center">
+          <a href="{{asset.link}}" target="_blank">
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-footer></app-footer>

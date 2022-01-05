@@ -59,17 +59,19 @@
         <th scope="col">Montse</th>
         <th scope="col">Diff-Sven</th>
         <th scope="col">Diff-Montse</th>
+        <th scope="col">Gesamt</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let cart of userSpendingsMonthly">
-        <td>{{cart.month}}</td>
+        <td>{{months[cart.month - 1]}}</td>
         <td>{{cart.sumSven | number: '1.2-2'}}€</td>
         <td>{{cart.sumMontse | number: '1.2-2'}}€</td>
         <td *ngIf="cart.diffSven < 0">{{cart.diffSven | number: '1.2-2'}}€</td>
         <td *ngIf="cart.diffSven >= 0">--</td>
         <td *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
         <td *ngIf="cart.diffMontse >= 0">--</td>
+        <td>{{cart.sumSven + cart.sumMontse | number: '1.2-2'}}€</td>
       </tr>
     </tbody>
   </table>

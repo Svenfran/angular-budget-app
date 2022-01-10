@@ -2,13 +2,13 @@
   <h4 class="text-center mb-3">Einkaufsliste</h4>
   <form [formGroup]="shoppingItemForm" (ngSubmit)="onSubmit()" class="input-group mb-3">
     <input formControlName="description" type="text" class="form-control" placeholder="Eintrag hinzufügen" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary btn-primary btn-sm" type="submit" id="button-addon2" style="color: white;">Hinzufügen</button>
+    <button [disabled]="!shoppingItemForm.valid" class="btn btn-primary btn-sm" type="submit" id="button-addon2" style="color: white;">Hinzufügen</button>
   </form>
   <table class="table table-sm">
     <tbody>
       <tr *ngFor="let item of shoppingItems; let i = index">
         <th scope="row">{{i + 1}}</th>
-        <td>{{item.description}}</td>
+        <td class="{{item.completed ? 'done' : ''}}" (click)="updateItem(item)">{{item.description}}</td>
         <td class="delete-item">
           <i (click)="onDelete(item.id)" class="fas fa-times"></i>
         </td>

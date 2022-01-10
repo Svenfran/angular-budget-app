@@ -70,12 +70,10 @@ export class CartFormularComponent implements OnInit {
     this.cartService.addCart(this.cartForm.value).subscribe(
       response => {
         this.reqSuccess = true;
-        // console.log("Success!", response);
         this.router.navigate(['budget-app/cartlist']);
       },
       error => {
         this.reqSuccess = false;
-        // console.log("Error!", error);
       }
     );
   }
@@ -84,12 +82,10 @@ export class CartFormularComponent implements OnInit {
     this.cartService.updateCart(this.cartForm.value).subscribe(
       response => {
         this.reqSuccess = true;
-        // console.log("Success!", response);
         this.router.navigate(['budget-app/cartlist']);
       },
       error => {
         this.reqSuccess = false;
-        // console.log("Error!", error);
       }
     );
   }

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
 
@@ -14,15 +15,17 @@ export class ShoppingListComponent implements OnInit {
   shoppingItems: ShoppingItem[] = [];
   shoppingItemForm: FormGroup;
   reqSuccess: boolean;
+  shoppingItem: ShoppingItem;
 
-  constructor(private cartService: CartlistServiceService, private fb: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private cartService: CartlistServiceService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.shoppingItemForm = this.fb.group({
-      description:[''],
+      description:['' ,[Validators.required]],
       isCompleted:['']
     })
     this.getShoppingItems();
+
   }
 
   getShoppingItems() {
@@ -45,6 +48,14 @@ export class ShoppingListComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.shoppingItemForm.invalid) {
+      this.shoppingItemForm.markAllAsTouched();
+      return;
+    }
+    this.createItem();
+  }
+
+  createItem() {
     this.cartService.addItem(this.shoppingItemForm.value).subscribe(
       response => {
         this.reqSuccess = true;
@@ -54,7 +65,27 @@ export class ShoppingListComponent implements OnInit {
       error => {
         this.reqSuccess = false;
       }
-    )
+    );
+  }
+  
+  updateItem(shoppingItem) {
+
+    shoppingItem.completed = !shoppingItem.completed;
+
+    this.cartService.updateItem(shoppingItem).subscribe(
+      response => {
+        this.reqSuccess = true;
+        this.ngOnInit();
+      },
+      error => {
+        this.reqSuccess = false;
+      }
+    );
+  }
+
+
+  get description() {
+    return this.shoppingItemForm.get('description');
   }
 
 }

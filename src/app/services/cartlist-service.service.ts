@@ -26,6 +26,8 @@ export class CartlistServiceService {
   private shoppingItemsUrl = `${this.apiBaseUrl}/api/shoppinglist`;
   private deleteItemsUrl = `${this.apiBaseUrl}/api/shoppinglist/delete`;
   private addItemUrl = `${this.apiBaseUrl}/api/shoppinglist/add`;
+  private updateItemUrl = `${this.apiBaseUrl}/api/shoppinglist/update`;
+  private getItemByIdUrl = `${this.apiBaseUrl}/api/shoppinglist`;
 
   constructor(private http: HttpClient) { }
 
@@ -76,5 +78,13 @@ export class CartlistServiceService {
 
   addItem(item: ShoppingItem): Observable<ShoppingItem> {
     return this.http.post<ShoppingItem>(this.addItemUrl, item);
+  }
+
+  updateItem(item: ShoppingItem): Observable<ShoppingItem> {
+    return this.http.put<ShoppingItem>(this.updateItemUrl, item);
+  }
+
+  getItemById(itemId: string): Observable<ShoppingItem> {
+    return this.http.get<ShoppingItem>(`${this.getItemByIdUrl}/${itemId}`);
   }
 }

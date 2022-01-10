@@ -4,4 +4,5 @@ export class UserSpendingsMonthly {
   sumMontse: number;
   diffSven: number;
   diffMontse: number;
+  total: number;
 }

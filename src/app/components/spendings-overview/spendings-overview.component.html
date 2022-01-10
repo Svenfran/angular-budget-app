@@ -54,7 +54,7 @@
   <table class="table table-sm">
     <thead>
       <tr>
-        <th scope="col">Monat</th>
+        <th scope="col">{{getCurrentYear()}}</th>
         <th scope="col">Sven</th>
         <th scope="col">Montse</th>
         <th scope="col">Diff-Sven</th>
@@ -71,7 +71,7 @@
         <td *ngIf="cart.diffSven >= 0">--</td>
         <td *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
         <td *ngIf="cart.diffMontse >= 0">--</td>
-        <td>{{cart.sumSven + cart.sumMontse | number: '1.2-2'}}€</td>
+        <td>{{cart.total | number: '1.2-2'}}€</td>
       </tr>
     </tbody>
   </table>

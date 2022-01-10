@@ -15,7 +15,8 @@ export class SpendingsOverviewComponent implements OnInit {
   userWithDeptYear: UserSpendings[] = [];
   userSpendingsMonthly: UserSpendingsMonthly[] = [];
   months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-                    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+            'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  today = new Date();
 
 
   constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
@@ -89,13 +90,11 @@ export class SpendingsOverviewComponent implements OnInit {
   }
 
   getCurrentMonth() {
-    const today = new Date();
-    return today.getMonth();
+    return this.today.getMonth();
   }
 
   getCurrentYear() {
-    const today = new Date();
-    return today.getFullYear();
+    return this.today.getFullYear();
   }
 
 

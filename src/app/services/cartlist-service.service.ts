@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cart } from '../models/cart';
 import { Category } from '../models/category';
+import { ShoppingItem } from '../models/shopping-item';
 import { UserSpendings } from '../models/user-spendings'
 import { UserSpendingsMonthly } from '../models/user-spendings-monthly';
 
@@ -22,6 +23,9 @@ export class CartlistServiceService {
   private addCartUrl = `${this.apiBaseUrl}/api/cartlist/add`;
   private updateCartUrl = `${this.apiBaseUrl}/api/cartlist/update`;
   private getCartByIdUrl = `${this.apiBaseUrl}/api/cartlist`;
+  private shoppingItemsUrl = `${this.apiBaseUrl}/api/shoppinglist`;
+  private deleteItemsUrl = `${this.apiBaseUrl}/api/shoppinglist/delete`;
+  private addItemUrl = `${this.apiBaseUrl}/api/shoppinglist/add`;
 
   constructor(private http: HttpClient) { }
 
@@ -60,5 +64,17 @@ export class CartlistServiceService {
 
   getSpendingsMonthly(): Observable<UserSpendingsMonthly[]> {
     return this.http.get<UserSpendingsMonthly[]>(this.userSpendingsMonthlyUrl);
+  }
+
+  getShoppingItems(): Observable<ShoppingItem[]> {
+    return this.http.get<ShoppingItem[]>(this.shoppingItemsUrl);
+  }
+
+  deleteItem(itemId: number): Observable<void> {
+    return this.http.delete<void>(`${this.deleteItemsUrl}/${itemId}`);
+  }
+
+  addItem(item: ShoppingItem): Observable<ShoppingItem> {
+    return this.http.post<ShoppingItem>(this.addItemUrl, item);
   }
 }

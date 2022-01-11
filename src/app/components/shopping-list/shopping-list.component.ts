@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
 
@@ -17,7 +17,8 @@ export class ShoppingListComponent implements OnInit {
   reqSuccess: boolean;
   shoppingItem: ShoppingItem;
 
-  constructor(private route: ActivatedRoute, private cartService: CartlistServiceService, private fb: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private cartService: CartlistServiceService, 
+              private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.shoppingItemForm = this.fb.group({
@@ -25,7 +26,6 @@ export class ShoppingListComponent implements OnInit {
       isCompleted:['']
     })
     this.getShoppingItems();
-
   }
 
   getShoppingItems() {
@@ -34,6 +34,14 @@ export class ShoppingListComponent implements OnInit {
         this.shoppingItems = data;
       }
     )
+    return this.shoppingItems;
+  }
+
+  deleteList() {
+    const items = this.getShoppingItems();
+    for (let i = 0; i < items.length; i++) {
+      this.onDelete(+items[i].id);
+    }
   }
 
   onDelete(itemId: number) {
@@ -67,7 +75,8 @@ export class ShoppingListComponent implements OnInit {
       }
     );
   }
-  
+
+  // mark Item as done!
   updateItem(shoppingItem) {
 
     shoppingItem.completed = !shoppingItem.completed;

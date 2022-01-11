@@ -1,7 +1,7 @@
 <div class="table-wrapper">
   <h4 class="text-center mb-3">Einkaufsliste</h4>
   <form [formGroup]="shoppingItemForm" (ngSubmit)="onSubmit()" class="input-group mb-3">
-    <input formControlName="description" type="text" class="form-control" placeholder="Eintrag hinzufügen" aria-describedby="button-addon2">
+    <input formControlName="description" type="text" class="form-control input-sm" placeholder="Eintrag hinzufügen" aria-describedby="button-addon2">
     <button [disabled]="!shoppingItemForm.valid" class="btn btn-primary btn-sm" type="submit" id="button-addon2" style="color: white;">Hinzufügen</button>
   </form>
   <table class="table table-sm">
@@ -15,6 +15,7 @@
       </tr>
     </tbody>
   </table>
+  <p *ngIf="shoppingItems.length > 0" style="cursor: pointer; width: fit-content;" (click)="deleteList()">Liste löschen</p>
 </div>
 
 <app-footer></app-footer>

@@ -17,6 +17,8 @@ export class SpendingsOverviewComponent implements OnInit {
   months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
             'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   today = new Date();
+  colorSven = '#5da7d5';
+  colorMontse = '#8e5ea2';
 
 
   constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
@@ -27,11 +29,10 @@ export class SpendingsOverviewComponent implements OnInit {
       this.getUserWithDeptYear();
       this.getMonthlySpendings();
     });
-
   }
 
   getUserWithDeptMonth() {
-    this.cartService.getUserSpendings().subscribe(
+    this.cartService.getUserSpendingsMonth().subscribe(
       data => {
         this.userWithDeptMonth = data.filter(e => e.diff < 0);
       }
@@ -55,34 +56,34 @@ export class SpendingsOverviewComponent implements OnInit {
     );
   }
 
-  getChartDataMonth() {
+  getChartData() {
     const chartUserNames: string[] = [];
-    const chartSpendings: number[] = [];
+    const chartSpendingsMonth: number[] = [];
+    const chartSpendingsYear: number[] = [];
+    let sumS: number = 0;
+    let sumM: number = 0;
 
-    this.cartService.getUserSpendings().subscribe(
+    this.cartService.getSpendingsMonthly().subscribe(
       data => {
         for (let i = 0; i < data.length; i++) {
-          chartUserNames.push(this.capitalize(data[i].userName));
-          chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
-        };
+          // console.log(Object.keys(data[i])[0].substring(3))
+          // console.log(Object.keys(data[i])[1].substring(3))
+          if (data[i].month == this.getCurrentMonth() + 1) {
+            chartSpendingsMonth.push(parseFloat(data[i].sumMontse.toFixed(2)));
+            chartSpendingsMonth.push(parseFloat(data[i].sumSven.toFixed(2)));
+            chartUserNames.push(Object.keys(data[i])[1].substring(3)); // Montse
+            chartUserNames.push(Object.keys(data[i])[0].substring(3)); // Sven
+          } 
+          if (data[i].month <= this.getCurrentMonth() + 1) {
+            sumM += data[i].sumMontse;
+            sumS += data[i].sumSven;
+            chartSpendingsYear.push(parseFloat(sumM.toFixed(2)));
+            chartSpendingsYear.push(parseFloat(sumS.toFixed(2)));
+          }
+        }  
       }
     )
-    return { chartUserNames, chartSpendings };
-  }
-
-  getChartDataYear() {
-    const chartUserNames: string[] = [];
-    const chartSpendings: number[] = [];
-
-    this.cartService.getUserSpendingsYear().subscribe(
-      data => {
-        for (let i = 0; i < data.length; i++) {
-          chartUserNames.push(this.capitalize(data[i].userName));
-          chartSpendings.push(parseFloat(data[i].sumAmount.toFixed(2)));
-        };
-      }
-    )  
-    return { chartUserNames, chartSpendings };
+    return { chartUserNames, chartSpendingsMonth, chartSpendingsYear };
   }
 
   capitalize(str) {
@@ -100,12 +101,12 @@ export class SpendingsOverviewComponent implements OnInit {
 
   //-----Charts-----------
   // Month
-  public doughnutChartLabels = this.getChartDataMonth().chartUserNames;
-  public doughnutChartData = this.getChartDataMonth().chartSpendings;
+  public doughnutChartLabels = this.getChartData().chartUserNames;
+  public doughnutChartData = this.getChartData().chartSpendingsMonth;
   public doughnutChartType = 'doughnut';
   public doughnutChartColors: Array<any> = [
     {
-      backgroundColor: ['#8e5ea2', '#5da7d5'],
+      backgroundColor: [this.colorMontse, this.colorSven],
       borderWidth: 0
     }
   ];
@@ -119,12 +120,12 @@ export class SpendingsOverviewComponent implements OnInit {
   };
 
   // Year
-  public doughnutChartLabelsYear = this.getChartDataYear().chartUserNames;
-  public doughnutChartDataYear = this.getChartDataYear().chartSpendings;
+  public doughnutChartLabelsYear = this.getChartData().chartUserNames;
+  public doughnutChartDataYear = this.getChartData().chartSpendingsYear;
   public doughnutChartTypeYear = 'doughnut';
   public doughnutChartColorsYear: Array<any> = [
     {
-      backgroundColor: ['#8e5ea2', '#5da7d5'],
+      backgroundColor: [this.colorMontse, this.colorSven],
       borderWidth: 0
     }
   ];

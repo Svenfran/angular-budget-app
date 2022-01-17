@@ -35,7 +35,7 @@ export class CartlistServiceService {
     return this.http.get<Cart[]>(this.cartlistUrl);
   }
 
-  getUserSpendings(): Observable<UserSpendings[]> {
+  getUserSpendingsMonth(): Observable<UserSpendings[]> {
     return this.http.get<UserSpendings[]>(this.userSpendingsMonthUrl);
   }
   

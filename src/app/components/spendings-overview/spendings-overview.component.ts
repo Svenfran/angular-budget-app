@@ -19,14 +19,18 @@ export class SpendingsOverviewComponent implements OnInit {
   today = new Date();
   colorSven = '#5da7d5';
   colorMontse = '#8e5ea2';
+  userDeptMonth: UserDept[] = [];
+  userDeptYear: UserDept[] = [];
 
 
   constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => {
-      this.getUserWithDeptMonth();
-      this.getUserWithDeptYear();
+      // this.getUserWithDeptMonth();
+      this.getUserWithDeptMonth2();
+      // this.getUserWithDeptYear();
+      this.getUserWithDeptYear2();
       this.getMonthlySpendings();
     });
   }
@@ -35,6 +39,7 @@ export class SpendingsOverviewComponent implements OnInit {
     this.cartService.getUserSpendingsMonth().subscribe(
       data => {
         this.userWithDeptMonth = data.filter(e => e.diff < 0);
+        // console.log(this.userWithDeptMonth);
       }
     );
   }
@@ -43,9 +48,65 @@ export class SpendingsOverviewComponent implements OnInit {
     this.cartService.getUserSpendingsYear().subscribe(
       data => {
         this.userWithDeptYear = data.filter(e => e.diff < 0);
+        // console.log(this.userWithDeptYear);
       }
     );
   }
+
+  getUserWithDeptYear2() {
+    let user = new UserDept();
+    let sumS: number = 0;
+    let sumM: number = 0;
+    
+    this.cartService.getSpendingsMonthly().subscribe(
+      data => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].month <= (this.getCurrentMonth() + 1)) {
+            if (data[i].diffMontse < 0) {
+              sumM += data[i].diffMontse;
+              user.diff = sumM;
+              user.userName = Object.keys(data[i])[1].substring(3).toLowerCase();
+            } else if (data[i].diffSven < 0) {
+              sumS += data[i].diffSven;
+              user.diff = sumS;
+              user.userName = Object.keys(data[i])[0].substring(3).toLowerCase();
+            } else {
+              user.diff = 0;
+              user.userName = "even";
+            }
+          }
+        }
+        // console.log(user)
+        this.userDeptYear.push(user);
+      }
+    );
+  }
+
+  getUserWithDeptMonth2() {
+    let user = new UserDept();
+    
+    this.cartService.getSpendingsMonthly().subscribe(
+      data => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].month == (this.getCurrentMonth() + 1)) {
+            if (data[i].diffMontse < 0) {
+              user.diff = data[i].diffMontse;
+              user.userName = Object.keys(data[i])[1].substring(3).toLowerCase();
+            } else if (data[i].diffSven < 0) {
+              user.diff = data[i].diffSven;
+              user.userName = Object.keys(data[i])[0].substring(3).toLowerCase();
+            } else {
+              user.diff = 0;
+              user.userName = "even";
+            }
+          }
+        }
+        // console.log(user)
+        this.userDeptMonth.push(user);
+      }
+    );
+  }
+
   
   getMonthlySpendings() {
     this.cartService.getSpendingsMonthly().subscribe(
@@ -66,8 +127,6 @@ export class SpendingsOverviewComponent implements OnInit {
     this.cartService.getSpendingsMonthly().subscribe(
       data => {
         for (let i = 0; i < data.length; i++) {
-          // console.log(Object.keys(data[i])[0].substring(3))
-          // console.log(Object.keys(data[i])[1].substring(3))
           if (data[i].month == this.getCurrentMonth() + 1) {
             chartSpendingsMonth.push(parseFloat(data[i].sumMontse.toFixed(2)));
             chartSpendingsMonth.push(parseFloat(data[i].sumSven.toFixed(2)));
@@ -138,4 +197,9 @@ export class SpendingsOverviewComponent implements OnInit {
     title: { display: true, text: 'Jan - ' + this.months[this.getCurrentMonth()].substring(0, 3) + " " + this.getCurrentYear() }
   };
 
+}
+
+class UserDept {
+  userName: string;
+  diff: number;
 }

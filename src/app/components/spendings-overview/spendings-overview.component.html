@@ -13,7 +13,7 @@
     </div>
     <div class="child-2">
       <div class="diff">
-        <div *ngFor="let user of userWithDeptMonth" class="diff-{{user.userName}}">
+        <div *ngFor="let user of userDeptMonth" class="diff-{{user.userName}}">
           <h6>{{user.diff | number: '1.2-2'}}€</h6>
           <p>{{user.userName | titlecase}}</p>
         </div>
@@ -34,7 +34,7 @@
     </div>
     <div class="child-2">
       <div class="diff">
-        <div *ngFor="let user of userWithDeptYear" class="diff-{{user.userName}}">
+        <div *ngFor="let user of userDeptYear" class="diff-{{user.userName}}">
           <h6>{{user.diff | number: '1.2-2'}}€</h6>
           <p>{{user.userName | titlecase}}</p>
         </div>
@@ -56,8 +56,8 @@
         <th scope="col">{{getCurrentYear()}}</th>
         <th scope="col">Sven</th>
         <th scope="col">Montse</th>
-        <th scope="col">&Delta; Sven</th>
-        <th scope="col">&Delta; Montse</th>
+        <th scope="col">&Delta;&nbsp;Sven</th>
+        <th scope="col">&Delta;&nbsp;Montse</th>
         <th scope="col">Gesamt</th>
       </tr>
     </thead>

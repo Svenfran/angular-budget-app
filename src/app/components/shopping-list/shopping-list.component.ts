@@ -34,13 +34,13 @@ export class ShoppingListComponent implements OnInit {
         this.shoppingItems = data;
       }
     )
-    return this.shoppingItems;
   }
 
   deleteList() {
-    const items = this.getShoppingItems();
-    for (let i = 0; i < items.length; i++) {
-      this.onDelete(+items[i].id);
+    for (let i = 0; i < this.shoppingItems.length; i++) {
+      if (this.shoppingItems[i].completed) {
+        this.onDelete(+this.shoppingItems[i].id);
+      }
     }
   }
 

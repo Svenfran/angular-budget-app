@@ -93,6 +93,17 @@ html > body {
   }
 }
 
+.diff-even {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  p {
+    // background-color: #212227;
+    background-color: #463F3A;
+  }
+}
+
 .add {
   display: flex;
   align-items: center;

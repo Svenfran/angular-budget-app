@@ -1,4 +1,10 @@
 
+table {
+  overflow-y: scroll;
+  display: block;
+  height: 100vh;
+}
+
 tr td {
   max-width: 150px;
 }

@@ -22,6 +22,16 @@ export class SpendingsOverviewComponent implements OnInit {
   userDeptMonth: UserDept[] = [];
   userDeptYear: UserDept[] = [];
 
+  cssSven = {
+    'color': this.colorSven,
+    'font-weight':'600'
+  }
+  cssMontse = {
+    'color': this.colorMontse,
+    'font-weight':'600'
+  }
+
+
 
   constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
 
@@ -101,12 +111,17 @@ export class SpendingsOverviewComponent implements OnInit {
             }
           }
         }
+
+        if (data.length == 0) {
+          user.diff = 0;
+          user.userName = "even";
+        }
+
         // console.log(user)
         this.userDeptMonth.push(user);
       }
     );
   }
-
   
   getMonthlySpendings() {
     this.cartService.getSpendingsMonthly().subscribe(
@@ -132,14 +147,16 @@ export class SpendingsOverviewComponent implements OnInit {
             chartSpendingsMonth.push(parseFloat(data[i].sumSven.toFixed(2)));
             chartUserNames.push(Object.keys(data[i])[1].substring(3)); // Montse
             chartUserNames.push(Object.keys(data[i])[0].substring(3)); // Sven
-          } 
+          }
+
           if (data[i].month <= this.getCurrentMonth() + 1) {
             sumM += data[i].sumMontse;
             sumS += data[i].sumSven;
             chartSpendingsYear.push(parseFloat(sumM.toFixed(2)));
             chartSpendingsYear.push(parseFloat(sumS.toFixed(2)));
           }
-        }  
+        }
+        
       }
     )
     return { chartUserNames, chartSpendingsMonth, chartSpendingsYear };

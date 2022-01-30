@@ -56,8 +56,8 @@
         <th scope="col">{{getCurrentYear()}}</th>
         <th scope="col">Sven</th>
         <th scope="col">Montse</th>
-        <th scope="col">&Delta;&nbsp;Sven</th>
-        <th scope="col">&Delta;&nbsp;Montse</th>
+        <th scope="col">&Delta;&nbsp;Ausgaben</th>
+        <!-- <th scope="col">&Delta;&nbsp;Montse</th> -->
         <th scope="col">Gesamt</th>
       </tr>
     </thead>
@@ -66,10 +66,10 @@
         <td>{{months[cart.month - 1]}}</td>
         <td>{{cart.sumSven | number: '1.2-2'}}€</td>
         <td>{{cart.sumMontse | number: '1.2-2'}}€</td>
-        <td *ngIf="cart.diffSven < 0">{{cart.diffSven | number: '1.2-2'}}€</td>
-        <td *ngIf="cart.diffSven >= 0">--</td>
-        <td *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
-        <td *ngIf="cart.diffMontse >= 0">--</td>
+        <td [ngStyle]="cssSven" *ngIf="cart.diffSven < 0">{{cart.diffSven | number: '1.2-2'}}€</td>
+        <!-- <td *ngIf="cart.diffSven >= 0">--</td> -->
+        <td [ngStyle]="cssMontse" *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
+        <!-- <td *ngIf="cart.diffMontse >= 0">--</td> -->
         <td>{{cart.total | number: '1.2-2'}}€</td>
       </tr>
     </tbody>

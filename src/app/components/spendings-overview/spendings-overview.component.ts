@@ -40,7 +40,7 @@ export class SpendingsOverviewComponent implements OnInit {
       // this.getUserWithDeptMonth();
       this.getUserWithDeptMonth2();
       this.getUserWithDeptYear();
-      // this.getUserWithDeptYear2();
+      this.getUserWithDeptYear2();
       this.getMonthlySpendings();
     });
   }
@@ -49,6 +49,7 @@ export class SpendingsOverviewComponent implements OnInit {
     this.cartService.getUserSpendingsMonth().subscribe(
       data => {
         this.userWithDeptMonth = data.filter(e => e.diff < 0);
+        // console.log("userWithDeptMonth: ")
         // console.log(this.userWithDeptMonth);
       }
     );
@@ -58,6 +59,7 @@ export class SpendingsOverviewComponent implements OnInit {
     this.cartService.getUserSpendingsYear().subscribe(
       data => {
         this.userWithDeptYear = data.filter(e => e.diff < 0);
+        // console.log("userDeptYear:");
         // console.log(this.userWithDeptYear);
       }
     );
@@ -87,7 +89,7 @@ export class SpendingsOverviewComponent implements OnInit {
             }
           }
         }
-        // console.log("userDeptYear:");
+        // console.log("userDeptYear2:");
         // console.log(this.userDeptYear);
         this.userDeptYear.push(user);
       }
@@ -99,26 +101,29 @@ export class SpendingsOverviewComponent implements OnInit {
     
     this.cartService.getSpendingsMonthly().subscribe(
       data => {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].month == (this.getCurrentMonth() + 1)) {
-            if (data[i].diffMontse < 0) {
-              user.diff = data[i].diffMontse;
-              user.userName = Object.keys(data[i])[1].substring(3).toLowerCase();
-            } else if (data[i].diffSven < 0) {
-              user.diff = data[i].diffSven;
-              user.userName = Object.keys(data[i])[0].substring(3).toLowerCase();
-            } else {
-              user.diff = 0;
-              user.userName = "even";
+
+        if (data.length < this.getCurrentMonth() + 1) {
+          user.diff = 0;
+          user.userName = "none";
+          user.msg = "keine Ausgaben bisher."
+        } else {
+          
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].month == (this.getCurrentMonth() + 1)) {
+              if (data[i].diffMontse < 0) {
+                user.diff = data[i].diffMontse;
+                user.userName = Object.keys(data[i])[1].substring(3).toLowerCase();
+              } else if (data[i].diffSven < 0) {
+                user.diff = data[i].diffSven;
+                user.userName = Object.keys(data[i])[0].substring(3).toLowerCase();
+              } else if (data[i].diffMontse == 0 && data[i].diffSven == 0) {
+                user.diff = 0;
+                user.userName = "balanced";
+              } 
             }
           }
         }
 
-        if (data.length == 0) {
-          user.diff = 0;
-          user.userName = "even";
-        }
-        
         // console.log("userDeptMonth:");
         // console.log(this.userDeptMonth);
         this.userDeptMonth.push(user);
@@ -148,15 +153,15 @@ export class SpendingsOverviewComponent implements OnInit {
           if (data[i].month == this.getCurrentMonth() + 1) {
             chartSpendingsMonth.push(parseFloat(data[i].sumMontse.toFixed(2)));
             chartSpendingsMonth.push(parseFloat(data[i].sumSven.toFixed(2)));
-            chartUserNames.push(Object.keys(data[i])[1].substring(3)); // Montse
-            chartUserNames.push(Object.keys(data[i])[0].substring(3)); // Sven
           }
-
+          
           if (data[i].month <= this.getCurrentMonth() + 1) {
             sumM += data[i].sumMontse;
             sumS += data[i].sumSven;
           }
         }
+        chartUserNames.push(Object.keys(data[0])[1].substring(3)); // Montse
+        chartUserNames.push(Object.keys(data[0])[0].substring(3)); // Sven
         chartSpendingsYear.push(parseFloat(sumM.toFixed(2)));
         chartSpendingsYear.push(parseFloat(sumS.toFixed(2)));
         
@@ -225,4 +230,5 @@ export class SpendingsOverviewComponent implements OnInit {
 class UserDept {
   userName: string;
   diff: number;
+  msg: string;
 }

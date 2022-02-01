@@ -94,14 +94,15 @@ html > body {
   }
 }
 
-.diff-even {
+.diff-balanced, .diff-none {
   align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
   p {
     // background-color: #212227;
-    background-color: #463F3A;
+    // background-color: #463F3A;
+    color: #463F3A;
   }
 }
 

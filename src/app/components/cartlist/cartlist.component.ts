@@ -21,13 +21,13 @@ export class CartlistComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.listCarts();
     });
-
   }
 
   listCarts() {
     this.cartService.getCartlist().subscribe(
       data => {
         this.cartlist = data;
+        // console.log(this.cartlist);
       }
     );
   }
@@ -54,6 +54,7 @@ export class CartlistComponent implements OnInit {
     let worksheet = workbook.addWorksheet('Ausgaben');
 
     worksheet.columns = [
+      { header: 'Jahr', key: 'year', width: 10 },
       { header: 'Name', key: 'userName', width: 10 },
       { header: 'Beschreibung', key: 'description', width: 32 },
       { header: 'Datum', key: 'datePurchased', width: 10 },
@@ -62,7 +63,8 @@ export class CartlistComponent implements OnInit {
     ];
 
     this.cartlist.forEach(cart => {
-      worksheet.addRow({userName: cart.userName,
+      worksheet.addRow({year: parseInt(cart.datePurchased.slice(6)),
+                        userName: cart.userName,
                         description: cart.description,
                         datePurchased: cart.datePurchased,
                         price: cart.price,

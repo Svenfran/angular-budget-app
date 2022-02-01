@@ -39,8 +39,8 @@ export class SpendingsOverviewComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       // this.getUserWithDeptMonth();
       this.getUserWithDeptMonth2();
-      // this.getUserWithDeptYear();
-      this.getUserWithDeptYear2();
+      this.getUserWithDeptYear();
+      // this.getUserWithDeptYear2();
       this.getMonthlySpendings();
     });
   }
@@ -63,6 +63,7 @@ export class SpendingsOverviewComponent implements OnInit {
     );
   }
 
+  // Method not in use!! -> needs fix!!
   getUserWithDeptYear2() {
     let user = new UserDept();
     let sumS: number = 0;
@@ -86,7 +87,8 @@ export class SpendingsOverviewComponent implements OnInit {
             }
           }
         }
-        // console.log(user)
+        // console.log("userDeptYear:");
+        // console.log(this.userDeptYear);
         this.userDeptYear.push(user);
       }
     );
@@ -116,8 +118,9 @@ export class SpendingsOverviewComponent implements OnInit {
           user.diff = 0;
           user.userName = "even";
         }
-
-        // console.log(user)
+        
+        // console.log("userDeptMonth:");
+        // console.log(this.userDeptMonth);
         this.userDeptMonth.push(user);
       }
     );
@@ -152,13 +155,16 @@ export class SpendingsOverviewComponent implements OnInit {
           if (data[i].month <= this.getCurrentMonth() + 1) {
             sumM += data[i].sumMontse;
             sumS += data[i].sumSven;
-            chartSpendingsYear.push(parseFloat(sumM.toFixed(2)));
-            chartSpendingsYear.push(parseFloat(sumS.toFixed(2)));
           }
         }
+        chartSpendingsYear.push(parseFloat(sumM.toFixed(2)));
+        chartSpendingsYear.push(parseFloat(sumS.toFixed(2)));
         
       }
     )
+    // console.log(chartUserNames);
+    // console.log(chartSpendingsMonth);
+    // console.log(chartSpendingsYear);
     return { chartUserNames, chartSpendingsMonth, chartSpendingsYear };
   }
 

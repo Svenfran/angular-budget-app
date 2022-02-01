@@ -34,7 +34,7 @@
     </div>
     <div class="child-2">
       <div class="diff">
-        <div *ngFor="let user of userDeptYear" class="diff-{{user.userName}}">
+        <div *ngFor="let user of userWithDeptYear" class="diff-{{user.userName}}">
           <h6>{{user.diff | number: '1.2-2'}}€</h6>
           <p>{{user.userName | titlecase}}</p>
         </div>

@@ -65,7 +65,6 @@ export class SpendingsOverviewComponent implements OnInit {
     );
   }
 
-  // Method not in use!! -> needs fix!!
   getUserWithDeptYear2() {
     let user = new UserDept();
     let sumS: number = 0;
@@ -73,22 +72,32 @@ export class SpendingsOverviewComponent implements OnInit {
     
     this.cartService.getSpendingsMonthly().subscribe(
       data => {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].month <= (this.getCurrentMonth() + 1)) {
-            if (data[i].diffMontse < 0) {
+
+        if (data.length == 0) {
+          user.diff = 0;
+          user.userName = "none";
+          user.msg = "keine Ausgaben bisher."
+        } else {
+
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].month <= (this.getCurrentMonth() + 1)) {
               sumM += data[i].diffMontse;
-              user.diff = sumM;
-              user.userName = Object.keys(data[i])[1].substring(3).toLowerCase();
-            } else if (data[i].diffSven < 0) {
               sumS += data[i].diffSven;
-              user.diff = sumS;
-              user.userName = Object.keys(data[i])[0].substring(3).toLowerCase();
-            } else {
-              user.diff = 0;
-              user.userName = "even";
             }
           }
+  
+          if (sumM < 0) {
+            user.diff = sumM;
+            user.userName = Object.keys(data[0])[1].substring(3).toLowerCase();
+          } else if (sumS < 0) {
+            user.diff = sumS;
+            user.userName = Object.keys(data[0])[0].substring(3).toLowerCase();
+          } else if (sumS == 0 && sumM == 0) {
+            user.diff = 0;
+            user.userName = "balanced";
+          }
         }
+
         // console.log("userDeptYear2:");
         // console.log(this.userDeptYear);
         this.userDeptYear.push(user);
@@ -102,7 +111,9 @@ export class SpendingsOverviewComponent implements OnInit {
     this.cartService.getSpendingsMonthly().subscribe(
       data => {
 
-        if (data.length < this.getCurrentMonth() + 1) {
+        const checkMonthExistence = dataParam => data.some( ({month}) => month == dataParam)
+
+        if (!checkMonthExistence(this.getCurrentMonth() + 1)) {
           user.diff = 0;
           user.userName = "none";
           user.msg = "keine Ausgaben bisher."

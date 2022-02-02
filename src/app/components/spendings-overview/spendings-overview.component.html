@@ -35,9 +35,10 @@
     </div>
     <div class="child-2">
       <div class="diff">
-        <div *ngFor="let user of userWithDeptYear" class="diff-{{user.userName}}">
-          <h6>{{user.diff | number: '1.2-2'}}€</h6>
-          <p>{{user.userName | titlecase}}</p>
+        <div *ngFor="let user of userDeptYear" class="diff-{{user.userName}}">
+          <h6 *ngIf="user.userName != 'none'">{{user.diff | number: '1.2-2'}}€</h6>
+          <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
+          <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
         </div>
       </div>
     </div>

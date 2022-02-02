@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 import { UserSpendings } from 'src/app/models/user-spendings';
 import { UserSpendingsMonthly } from 'src/app/models/user-spendings-monthly';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
@@ -194,6 +196,36 @@ export class SpendingsOverviewComponent implements OnInit {
 
   getCurrentYear() {
     return this.today.getFullYear();
+  }
+
+  exportExcel() {
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Ausgaben');
+
+    worksheet.columns = [
+      { header: 'Jahr', key: 'year', width: 10 },
+      { header: 'Monat', key: 'month', width: 10 },
+      { header: 'Sven', key: 'sumSven', width: 10 },
+      { header: 'Montse', key: 'sumMontse', width: 10 },
+      { header: 'Diff-Sven', key: 'diffSven', width: 10 },
+      { header: 'Diff-Montse', key: 'diffMontse', width: 10 },
+      { header: 'Gesamt', key: 'total', width: 10 },
+    ];
+
+    this.userSpendingsMonthly.forEach(month => {
+      worksheet.addRow({year: this.getCurrentYear(),
+                        month: this.months[month.month - 1],
+                        sumSven: parseFloat(month.sumSven.toFixed(2)),
+                        sumMontse: parseFloat(month.sumMontse.toFixed(2)),
+                        diffSven: parseFloat(month.diffSven.toFixed(2)),
+                        diffMontse: parseFloat(month.diffMontse.toFixed(2)),
+                        total: parseFloat(month.total.toFixed(2))}, "n");
+    })
+ 
+    workbook.xlsx.writeBuffer().then((cartlist) => {
+      let blob = new Blob([cartlist], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'Ausgaben_Monat.xlsx');
+    })
   }
 
 

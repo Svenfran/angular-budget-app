@@ -30,7 +30,7 @@
             <a [routerLink]="['/budget-app/spendings/edit/', cart.id]">
               <i class="fas fa-pen"></i>
             </a>
-            <a (click)="onDelete(cart.id, cart.price)">
+            <a (click)="onDelete(cart.id, cart.price, cart.description)">
               <i class="far fa-trash-alt"></i>
             </a>
           </div>

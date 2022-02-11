@@ -36,8 +36,8 @@ export class CartlistComponent implements OnInit {
     return sessionStorage.getItem('userName');
   }
 
-  onDelete(cartId: number, cartPrice: number) {
-    if (confirm(`Delete Cart €${cartPrice}?`)) {
+  onDelete(cartId: number, cartPrice: number, cartDescription: string) {
+    if (confirm(`${cartDescription} - €${cartPrice} löschen?`)) {
       this.cartService.deleteCart(cartId).subscribe(
         (data: void) => {
           this.ngOnInit();

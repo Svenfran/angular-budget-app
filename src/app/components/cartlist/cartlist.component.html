@@ -59,7 +59,7 @@
         <div class="modal-body">
            <p> <strong>Datum:</strong> {{deleteCart?.datePurchased}}</p>
            <p> <strong>Beschreibung:</strong> {{deleteCart?.description}}</p>
-           <p> <strong>Betrag:</strong> {{deleteCart?.price}}€</p>
+           <p> <strong>Betrag:</strong> {{deleteCart?.price | currency: 'EUR'}}</p>
            <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Nein</button>
               <button (click)="onDelete(deleteCart?.id)" class="btn btn-primary" data-dismiss="modal">Ja</button>

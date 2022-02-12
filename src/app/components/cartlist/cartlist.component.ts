@@ -14,6 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CartlistComponent implements OnInit {
 
   cartlist: Cart[] = [];
+  editCart: Cart;
+  deleteCart: Cart;
 
   constructor(private route: ActivatedRoute, private cartService: CartlistServiceService) { }
 
@@ -36,17 +38,28 @@ export class CartlistComponent implements OnInit {
     return sessionStorage.getItem('userName');
   }
 
-  onDelete(cartId: number, cartPrice: number, cartDescription: string) {
-    if (confirm(`${cartDescription} - €${cartPrice} löschen?`)) {
-      this.cartService.deleteCart(cartId).subscribe(
-        (data: void) => {
-          this.ngOnInit();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
-    }
+  // onDelete(cartId: number, cartPrice: number, cartDescription: string) {
+  //   if (confirm(`${cartDescription} - €${cartPrice} löschen?`)) {
+  //     this.cartService.deleteCart(cartId).subscribe(
+  //       (data: void) => {
+  //         this.ngOnInit();
+  //       },
+  //       (error: HttpErrorResponse) => {
+  //         alert(error.message);
+  //       }
+  //     );
+  //   }
+  // }
+
+  onDelete(cartId: number) {
+    this.cartService.deleteCart(cartId).subscribe(
+      (data: void) => {
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   exportExcel() {
@@ -76,5 +89,29 @@ export class CartlistComponent implements OnInit {
       fs.saveAs(blob, 'Ausgaben.xlsx');
     })
   }
+
+    // change button type from submit to button
+    public onOpenModal(cart: Cart, mode: string): void {
+      const container = document.getElementById("main-container")
+      const button = document.createElement("button");
+      button.type = "button";
+      button.style.display = "none";
+      button.setAttribute("data-toggle", "modal");
+
+      // if (mode === "add") {
+      //   button.setAttribute("data-target", "#addCartModal");
+      // }
+      // if (mode === "edit") {
+      //   this.editCart = cart;
+      //   button.setAttribute("data-target", "#updateCartModal");
+      // }
+      if (mode === "delete") {
+        this.deleteCart = cart;
+        button.setAttribute("data-target", "#deleteCartModal");
+      }
+
+      container.appendChild(button);
+      button.click();
+    }
 
 }

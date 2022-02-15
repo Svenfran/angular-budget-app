@@ -11,7 +11,7 @@ tr td {
 
 @media(max-width: 768px) {
 
-  tr th:nth-child(6),tr td:nth-child(6),
+  // tr th:nth-child(6),tr td:nth-child(6),
   tr th:nth-child(2),tr td:nth-child(2),
   tr th:nth-child(1),tr td:nth-child(1) {
     display:none;

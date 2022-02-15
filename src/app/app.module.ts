@@ -15,7 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingInterceptorService } from './services/loading-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { AssetlistComponent } from './components/assetlist/assetlist.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
@@ -52,7 +52,7 @@ const routes: Routes = [
     ChartsModule,
     BrowserAnimationsModule
   ],
-  providers: [DatePipe, {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true},
+  providers: [DatePipe, CurrencyPipe, {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptorService, multi: true},
               {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })

@@ -16,6 +16,7 @@ export class CartlistComponent implements OnInit {
   cartlist: Cart[] = [];
   editCart: Cart;
   deleteCart: Cart;
+  filterMode: boolean;
 
   constructor(private route: ActivatedRoute, private cartService: CartlistServiceService) { }
 
@@ -113,5 +114,45 @@ export class CartlistComponent implements OnInit {
       container.appendChild(button);
       button.click();
     }
+
+  filterCategory(categoryName: string) {
+    if (!this.filterMode) {
+      this.filter(categoryName);
+    } else {
+      this.showAll();
+    }
+  }
+
+  filter(categoryName: string) {
+    let filter, table, tr, td, i, txtValue, tableScroll
+    filter = categoryName.toUpperCase();
+    table = document.getElementById("main-container");
+    tr = table.getElementsByTagName("tr");
+  
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+    this.filterMode = true;
+  }
+
+  showAll() {
+    let table, tr, i, tableScroll
+    table = document.getElementById("main-container");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      tr[i].style.display = "";
+    }
+    this.filterMode = false;
+  }
 
 }

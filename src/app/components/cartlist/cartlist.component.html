@@ -10,7 +10,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <!-- <th scope="col">Kategorie</th> -->
+        <th style="display: none;" scope="col">Kategorie</th>
         <th scope="col" colspan="2">Beschreibung</th>
         <th scope="col">Datum</th>
         <th scope="col">Betrag</th>
@@ -21,12 +21,12 @@
       <tr *ngFor="let cart of cartlist; let i = index">
         <th scope="row">{{i + 1}}</th>
         <td>{{cart.userName | titlecase }}</td>
-        <!-- <td>{{cart.categoryName}}</td> -->
-        <td *ngIf="cart.categoryName == 'Geschenke'"><i style="color: #375e97;" class="fas fa-gift"></i></td>
-        <td *ngIf="cart.categoryName == 'Auto'"><i style="color: #fb6542;" class="fas fa-car"></i></td>
-        <td *ngIf="cart.categoryName == 'Wohnung'"><i style="color: #708d81;" class="fas fa-home"></i></td>
-        <td *ngIf="cart.categoryName == 'Urlaub'"><i style="color: #ffbb00;" class="fas fa-plane-departure"></i></td>
-        <td *ngIf="cart.categoryName == 'Lebensmittel'"><i style="color: #3f681c;" class="fas fa-utensils"></i></td>
+        <td style="display: none;">{{cart.categoryName}}</td>
+        <td *ngIf="cart.categoryName == 'Geschenke'"><i style="color: #375e97; cursor: pointer;" class="fas fa-gift" (click)="filterCategory(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Auto'"><i style="color: #fb6542; cursor: pointer;" class="fas fa-car" (click)="filterCategory(cart.categoryName)" ></i></td>
+        <td *ngIf="cart.categoryName == 'Wohnung'"><i style="color: #708d81; cursor: pointer;" class="fas fa-home" (click)="filterCategory(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Urlaub'"><i style="color: #ffbb00; cursor: pointer;" class="fas fa-plane-departure" (click)="filterCategory(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Lebensmittel'"><i style="color: #3f681c; cursor: pointer;" class="fas fa-utensils" (click)="filterCategory(cart.categoryName)"></i></td>
         <td>{{cart.description}}</td>
         <td>{{cart.datePurchased}}</td>
         <td>{{cart.price | currency: 'EUR'}}</td>

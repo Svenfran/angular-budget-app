@@ -29,7 +29,7 @@
         <td *ngIf="cart.categoryName == 'Lebensmittel'"><i style="color: #3f681c; cursor: pointer;" class="fas fa-utensils" (click)="filterCategory(cart.categoryName)"></i></td>
         <td>{{cart.description}}</td>
         <td>{{cart.datePurchased}}</td>
-        <td>{{cart.price | currency: 'EUR'}}</td>
+        <td class="price">{{cart.price | currency: 'EUR'}}</td>
         <td colspan="2">
           <div *ngIf="cart.userName == getCurrentUser()" class="d-flex justify-content-around">
             <a [routerLink]="['/budget-app/spendings/edit/', cart.id]">
@@ -46,8 +46,13 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-between">
+    <p><strong>Gesamt:</strong></p>
+    <p><strong>{{sumPrice}}</strong></p>
+  </div>
   <button class="btn btn-primary btn-sm" (click)="exportExcel()">Excel Export</button>
 </div>
+
 
 <app-footer></app-footer>
 

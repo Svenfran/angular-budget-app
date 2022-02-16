@@ -1,30 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cart } from 'src/app/models/cart';
 import { CartlistServiceService } from 'src/app/services/cartlist-service.service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cartlist',
   templateUrl: './cartlist.component.html',
   styleUrls: ['./cartlist.component.scss']
 })
-export class CartlistComponent implements OnInit {
+export class CartlistComponent implements AfterViewInit {
 
   cartlist: Cart[] = [];
   editCart: Cart;
   deleteCart: Cart;
   filterMode: boolean;
+  sumPrice: string;
 
-  constructor(private route: ActivatedRoute, private cartService: CartlistServiceService) { }
+  constructor(private route: ActivatedRoute, private cartService: CartlistServiceService,
+              private currencyPipe: CurrencyPipe) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.route.paramMap.subscribe(() => {
       this.listCarts();
     });
-  }
+    setTimeout(() => {
+      this.sumTableRows()
+    }, 500)
+  };
 
   listCarts() {
     this.cartService.getCartlist().subscribe(
@@ -55,7 +61,7 @@ export class CartlistComponent implements OnInit {
   onDelete(cartId: number) {
     this.cartService.deleteCart(cartId).subscribe(
       (data: void) => {
-        this.ngOnInit();
+        this.ngAfterViewInit();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -121,12 +127,13 @@ export class CartlistComponent implements OnInit {
     } else {
       this.showAll();
     }
+    this.sumTableRows();
   }
 
   filter(categoryName: string) {
-    let filter, table, tr, td, i, txtValue, tableScroll
+    let filter, table, tr, td, i, txtValue
     filter = categoryName.toUpperCase();
-    table = document.getElementById("main-container");
+    table = document.querySelector(".table");
     tr = table.getElementsByTagName("tr");
   
     // Loop through all table rows, and hide those who don't match the search query
@@ -145,8 +152,8 @@ export class CartlistComponent implements OnInit {
   }
 
   showAll() {
-    let table, tr, i, tableScroll
-    table = document.getElementById("main-container");
+    let table, tr, i
+    table = document.querySelector(".table");
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
@@ -154,5 +161,22 @@ export class CartlistComponent implements OnInit {
     }
     this.filterMode = false;
   }
+
+  sumTableRows() {
+    let table, tds, trs;
+    let sum = 0;
+    
+    table = document.querySelector(".table");
+    tds = table.getElementsByTagName("td");
+    trs = table.getElementsByTagName("tr");
+    
+    for (let i = 1; i < trs.length; i++) {
+      if (trs[i].style.display != "none") {
+        sum += parseFloat(trs[i].cells[6].innerHTML.substring(1).replace(",", ""));
+      }
+    }
+    this.sumPrice = this.currencyPipe.transform(sum, 'EUR')
+  }
+
 
 }

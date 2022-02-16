@@ -19,6 +19,7 @@ export class CartlistComponent implements AfterViewInit {
   deleteCart: Cart;
   filterMode: boolean;
   sumPrice: string;
+  category: string;
 
   constructor(private route: ActivatedRoute, private cartService: CartlistServiceService,
               private currencyPipe: CurrencyPipe) { }
@@ -164,17 +165,19 @@ export class CartlistComponent implements AfterViewInit {
 
   sumTableRows() {
     let table, tds, trs;
+    let cat: string[] = [];
     let sum = 0;
     
     table = document.querySelector(".table");
     tds = table.getElementsByTagName("td");
     trs = table.getElementsByTagName("tr");
-    
     for (let i = 1; i < trs.length; i++) {
       if (trs[i].style.display != "none") {
         sum += parseFloat(trs[i].cells[6].innerHTML.substring(1).replace(",", ""));
+        cat.push(trs[i].cells[2].innerHTML);
       }
     }
+    this.category = this.filterMode ? cat[0] : 'Gesamt';
     this.sumPrice = this.currencyPipe.transform(sum, 'EUR')
   }
 

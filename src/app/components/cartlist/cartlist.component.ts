@@ -176,8 +176,8 @@ export class CartlistComponent implements AfterViewInit {
     let sum = 0;
     
     table = document.querySelector(".table");
-    tds = table.getElementsByTagName("td");
     trs = table.getElementsByTagName("tr");
+    tds = table.getElementsByTagName("td");
     
     for (let i = 1; i < trs.length; i++) {
       if (trs[i].style.display != "none") {

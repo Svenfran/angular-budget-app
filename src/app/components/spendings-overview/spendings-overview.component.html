@@ -14,7 +14,7 @@
     <div class="child-2">
       <div class="diff">
         <div *ngFor="let user of userDeptMonth" class="diff-{{user.userName}}">
-          <h6 *ngIf="user.userName != 'none'">{{user.diff | number: '1.2-2'}}€</h6>
+          <h6 *ngIf="user.userName != 'none'">{{user.diff | currency: 'EUR': number: '1.2-2'}}</h6>
           <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
           <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
         </div>
@@ -36,7 +36,7 @@
     <div class="child-2">
       <div class="diff">
         <div *ngFor="let user of userDeptYear" class="diff-{{user.userName}}">
-          <h6 *ngIf="user.userName != 'none'">{{user.diff | number: '1.2-2'}}€</h6>
+          <h6 *ngIf="user.userName != 'none'">{{user.diff | currency: 'EUR': number: '1.2-2'}}</h6>
           <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
           <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
         </div>
@@ -66,14 +66,24 @@
     <tbody>
       <tr *ngFor="let cart of userSpendingsMonthly">
         <td>{{months[cart.month - 1]}}</td>
-        <td>{{cart.sumSven | number: '1.2-2'}}€</td>
-        <td>{{cart.sumMontse | number: '1.2-2'}}€</td>
-        <td [ngStyle]="cssSven" *ngIf="cart.diffSven < 0">{{cart.diffSven | number: '1.2-2'}}€</td>
+        <td>{{cart.sumSven | currency: 'EUR': number: '1.2-2'}}</td>
+        <td>{{cart.sumMontse | currency: 'EUR': number: '1.2-2'}}</td>
+        <td [ngStyle]="cssSven" *ngIf="cart.diffSven < 0">{{cart.diffSven | currency: 'EUR': number: '1.2-2'}}</td>
         <!-- <td *ngIf="cart.diffSven >= 0">--</td> -->
-        <td [ngStyle]="cssMontse" *ngIf="cart.diffMontse < 0">{{cart.diffMontse | number: '1.2-2'}}€</td>
+        <td [ngStyle]="cssMontse" *ngIf="cart.diffMontse < 0">{{cart.diffMontse | currency: 'EUR': number: '1.2-2'}}</td>
         <!-- <td *ngIf="cart.diffMontse >= 0">--</td> -->
-        <td *ngIf="cart.diffMontse == 0 && cart.diffSven == 0">0.00€</td>
-        <td>{{cart.total | number: '1.2-2'}}€</td>
+        <td *ngIf="cart.diffMontse == 0 && cart.diffSven == 0">€0.00</td>
+        <td>{{cart.total | currency: 'EUR': number: '1.2-2'}}</td>
+      </tr>
+    </tbody>
+    <tbody style="border-top: 1.5px solid;">
+      <tr *ngFor="let user of userDeptYear" style="font-size: 12px; font-weight: bold;">
+        <th>Gesamt:</th>
+        <th>{{user.totalS | currency: 'EUR': number: '1.2-2'}}</th>
+        <th>{{user.totalM | currency: 'EUR': number: '1.2-2'}}</th>
+        <th [ngStyle]="cssSven" *ngIf="user.userName == 'sven'">{{user.diff | currency: 'EUR': number: '1.2-2'}}</th>
+        <th [ngStyle]="cssMontse" *ngIf="user.userName == 'montse'">{{user.diff | currency: 'EUR': number: '1.2-2'}}</th>
+        <th>{{user.total | currency: 'EUR': number: '1.2-2'}}</th>
       </tr>
     </tbody>
   </table>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
@@ -23,6 +24,9 @@ export class SpendingsOverviewComponent implements OnInit {
   colorMontse = '#8e5ea2';
   userDeptMonth: UserDept[] = [];
   userDeptYear: UserDept[] = [];
+  sumS: string;
+  sumM: string;
+  sumTotal: string;
 
   cssSven = {
     'color': this.colorSven,
@@ -35,7 +39,8 @@ export class SpendingsOverviewComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private cartService: CartlistServiceService) { }
+  constructor(private router: Router, private route: ActivatedRoute, 
+              private cartService: CartlistServiceService, private currencyPipe: CurrencyPipe) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => {
@@ -71,7 +76,10 @@ export class SpendingsOverviewComponent implements OnInit {
     let user = new UserDept();
     let sumS: number = 0;
     let sumM: number = 0;
-    
+    let totalS: number = 0;
+    let totalM: number = 0;
+    let total: number = 0;
+
     this.cartService.getSpendingsMonthly().subscribe(
       data => {
 
@@ -85,6 +93,8 @@ export class SpendingsOverviewComponent implements OnInit {
             if (data[i].month <= (this.getCurrentMonth() + 1)) {
               sumM += data[i].diffMontse;
               sumS += data[i].diffSven;
+              totalM += data[i].sumMontse;
+              totalS += data[i].sumSven;
             }
           }
   
@@ -99,6 +109,9 @@ export class SpendingsOverviewComponent implements OnInit {
             user.userName = "balanced";
           }
         }
+        user.totalM = totalM;
+        user.totalS = totalS;
+        user.total = totalM + totalS;
 
         // console.log("userDeptYear2:");
         // console.log(this.userDeptYear);
@@ -228,7 +241,6 @@ export class SpendingsOverviewComponent implements OnInit {
     })
   }
 
-
   //-----Charts-----------
   // Month
   public doughnutChartLabels = this.getChartData().chartUserNames;
@@ -274,4 +286,7 @@ class UserDept {
   userName: string;
   diff: number;
   msg: string;
+  totalS: number;
+  totalM: number;
+  total: number;
 }

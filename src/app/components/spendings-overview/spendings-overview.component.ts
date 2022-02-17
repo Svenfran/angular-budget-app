@@ -41,7 +41,7 @@ export class SpendingsOverviewComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       // this.getUserWithDeptMonth();
       this.getUserWithDeptMonth2();
-      this.getUserWithDeptYear();
+      // this.getUserWithDeptYear();
       this.getUserWithDeptYear2();
       this.getMonthlySpendings();
     });

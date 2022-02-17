@@ -20,6 +20,7 @@ export class CartlistComponent implements AfterViewInit {
   filterMode: boolean;
   sumPrice: string;
   category: string;
+  today = new Date();
 
   constructor(private route: ActivatedRoute, private cartService: CartlistServiceService,
               private currencyPipe: CurrencyPipe) { }
@@ -37,6 +38,8 @@ export class CartlistComponent implements AfterViewInit {
     this.cartService.getCartlist().subscribe(
       data => {
         this.cartlist = data;
+        // get only carts for current year
+        // this.cartlist = data.filter(e => e.datePurchased.substring(6) == this.getCurrentYear().toString());
         // console.log(this.cartlist);
       }
     );
@@ -44,6 +47,10 @@ export class CartlistComponent implements AfterViewInit {
 
   getCurrentUser() {
     return sessionStorage.getItem('userName');
+  }
+
+  getCurrentYear() {
+    return this.today.getFullYear();
   }
 
   // onDelete(cartId: number, cartPrice: number, cartDescription: string) {
@@ -98,29 +105,29 @@ export class CartlistComponent implements AfterViewInit {
     })
   }
 
-    // change button type from submit to button
-    public onOpenModal(cart: Cart, mode: string): void {
-      const container = document.getElementById("main-container")
-      const button = document.createElement("button");
-      button.type = "button";
-      button.style.display = "none";
-      button.setAttribute("data-toggle", "modal");
+  // change button type from submit to button
+  public onOpenModal(cart: Cart, mode: string): void {
+    const container = document.getElementById("main-container")
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.display = "none";
+    button.setAttribute("data-toggle", "modal");
 
-      // if (mode === "add") {
-      //   button.setAttribute("data-target", "#addCartModal");
-      // }
-      // if (mode === "edit") {
-      //   this.editCart = cart;
-      //   button.setAttribute("data-target", "#updateCartModal");
-      // }
-      if (mode === "delete") {
-        this.deleteCart = cart;
-        button.setAttribute("data-target", "#deleteCartModal");
-      }
-
-      container.appendChild(button);
-      button.click();
+    // if (mode === "add") {
+    //   button.setAttribute("data-target", "#addCartModal");
+    // }
+    // if (mode === "edit") {
+    //   this.editCart = cart;
+    //   button.setAttribute("data-target", "#updateCartModal");
+    // }
+    if (mode === "delete") {
+      this.deleteCart = cart;
+      button.setAttribute("data-target", "#deleteCartModal");
     }
+
+    container.appendChild(button);
+    button.click();
+  }
 
   filterCategory(categoryName: string) {
     if (!this.filterMode) {
@@ -171,6 +178,7 @@ export class CartlistComponent implements AfterViewInit {
     table = document.querySelector(".table");
     tds = table.getElementsByTagName("td");
     trs = table.getElementsByTagName("tr");
+    
     for (let i = 1; i < trs.length; i++) {
       if (trs[i].style.display != "none") {
         sum += parseFloat(trs[i].cells[6].innerHTML.substring(1).replace(",", ""));

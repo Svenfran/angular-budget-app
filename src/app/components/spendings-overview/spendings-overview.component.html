@@ -77,7 +77,7 @@
       </tr>
     </tbody>
     <tbody style="border-top: 1.5px solid;">
-      <tr *ngFor="let user of userDeptYear" style="font-size: 12px; font-weight: bold;">
+      <tr *ngFor="let user of userDeptYear">
         <th>Gesamt:</th>
         <th>{{user.totalS | currency: 'EUR': number: '1.2-2'}}</th>
         <th>{{user.totalM | currency: 'EUR': number: '1.2-2'}}</th>

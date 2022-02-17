@@ -15,6 +15,7 @@ export class FooterComponent implements OnInit {
 
   logOut() {
     sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('token');
     this.router.navigate(['login']);
   }
 }

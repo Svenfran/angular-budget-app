@@ -18,7 +18,7 @@ export class CartlistComponent implements AfterViewInit {
   editCart: Cart;
   deleteCart: Cart;
   filterMode: boolean;
-  sumPrice: string;
+  sumPrice: number;
   category: string;
   today = new Date();
 
@@ -181,12 +181,13 @@ export class CartlistComponent implements AfterViewInit {
     
     for (let i = 1; i < trs.length; i++) {
       if (trs[i].style.display != "none") {
-        sum += parseFloat(trs[i].cells[6].innerHTML.substring(1).replace(",", ""));
+        sum += parseFloat(trs[i].cells[6].innerHTML.replace("&nbsp;€", "").replace(".", "").replace(",", "."));
+        // console.log(trs[i].cells[6].innerHTML.replace("&nbsp;€", "").replace(".", "").replace(",", "."));
         cat.push(trs[i].cells[2].innerHTML);
       }
     }
     this.category = this.filterMode ? cat[0] : 'Gesamt';
-    this.sumPrice = this.currencyPipe.transform(sum, 'EUR')
+    this.sumPrice = sum;
   }
 
 

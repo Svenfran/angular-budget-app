@@ -15,7 +15,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoadingInterceptorService } from './services/loading-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe, CurrencyPipe } from '@angular/common';
+import { DatePipe, CurrencyPipe, registerLocaleData } from '@angular/common';
+import   localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe, 'de');
 import { AssetlistComponent } from './components/assetlist/assetlist.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 

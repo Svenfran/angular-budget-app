@@ -12,7 +12,7 @@
       <tr *ngFor="let asset of assetlist; let i = index">
         <th scope="row">{{i + 1}}</th>
         <td>{{asset.name}}</td>
-        <td *ngIf="asset.name != 'Gold/Silber Ratio'">{{asset.amount | currency: 'EUR'}}</td>
+        <td *ngIf="asset.name != 'Gold/Silber Ratio'">{{asset.amount | currency: 'EUR': number: '1.2-2': 'de'}}</td>
         <td *ngIf="asset.name == 'Gold/Silber Ratio'">{{asset.amount | number: '1.0-0'}}</td>
         <td class="text-center">
           <a href="{{asset.link}}" target="_blank">

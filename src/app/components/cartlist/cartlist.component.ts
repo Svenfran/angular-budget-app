@@ -31,7 +31,7 @@ export class CartlistComponent implements AfterViewInit {
     });
     setTimeout(() => {
       this.sumTableRows()
-    }, 500)
+    }, 1000)
   };
 
   listCarts() {

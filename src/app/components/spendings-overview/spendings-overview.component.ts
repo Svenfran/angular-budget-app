@@ -255,7 +255,7 @@ export class SpendingsOverviewComponent implements OnInit {
 
   public doughnutChartOptions: any = {
     responsive: false,
-    cutoutPercentage: '85',
+    cutoutPercentage: '90',
     legend: false,
     // legend: { position: 'bottom' },
     title: { display: true, text: this.months[this.getCurrentMonth()] + " " + this.getCurrentYear()}
@@ -274,7 +274,7 @@ export class SpendingsOverviewComponent implements OnInit {
 
   public doughnutChartOptionsYear: any = {
     responsive: false,
-    cutoutPercentage: '85',
+    cutoutPercentage: '90',
     legend: false,
     // legend: { position: 'bottom' },
     title: { display: true, text: 'Jan - ' + this.months[this.getCurrentMonth()].substring(0, 3) + " " + this.getCurrentYear() }

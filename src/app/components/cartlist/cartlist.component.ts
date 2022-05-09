@@ -53,19 +53,6 @@ export class CartlistComponent implements AfterViewInit {
     return this.today.getFullYear();
   }
 
-  // onDelete(cartId: number, cartPrice: number, cartDescription: string) {
-  //   if (confirm(`${cartDescription} - €${cartPrice} löschen?`)) {
-  //     this.cartService.deleteCart(cartId).subscribe(
-  //       (data: void) => {
-  //         this.ngOnInit();
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         alert(error.message);
-  //       }
-  //     );
-  //   }
-  // }
-
   onDelete(cartId: number) {
     this.cartService.deleteCart(cartId).subscribe(
       (data: void) => {
@@ -93,7 +80,7 @@ export class CartlistComponent implements AfterViewInit {
     this.cartlist.forEach(cart => {
       worksheet.addRow({year: parseInt(cart.datePurchased.slice(6)),
                         userName: cart.userName,
-                        description: cart.description,
+                        description: cart.description.trim(),
                         datePurchased: cart.datePurchased,
                         price: cart.price,
                         categoryName: cart.categoryName}, "n");
@@ -129,7 +116,7 @@ export class CartlistComponent implements AfterViewInit {
     button.click();
   }
 
-  filterCategory(categoryName: string) {
+  filterTable(categoryName: string) {
     if (!this.filterMode) {
       this.filter(categoryName);
     } else {
@@ -174,6 +161,7 @@ export class CartlistComponent implements AfterViewInit {
     let table, tds, trs;
     let cat: string[] = [];
     let sum = 0;
+    let count = 0;
     
     table = document.querySelector(".table");
     trs = table.getElementsByTagName("tr");
@@ -181,12 +169,13 @@ export class CartlistComponent implements AfterViewInit {
     
     for (let i = 1; i < trs.length; i++) {
       if (trs[i].style.display != "none") {
+        count += 1;
         sum += parseFloat(trs[i].cells[6].innerHTML.replace("&nbsp;€", "").replace(".", "").replace(",", "."));
         // console.log(trs[i].cells[6].innerHTML.replace("&nbsp;€", "").replace(".", "").replace(",", "."));
         cat.push(trs[i].cells[2].innerHTML);
       }
     }
-    this.category = this.filterMode ? cat[0] : 'Gesamt';
+    this.category = this.filterMode ? cat[0] + "(" + count + "):" : "Gesamt(" + count + "):" ;
     this.sumPrice = sum;
   }
 

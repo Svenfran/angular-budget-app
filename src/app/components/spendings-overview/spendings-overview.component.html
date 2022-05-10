@@ -3,28 +3,6 @@
     <div class="child-1">
       <div class="chart-wrapper">
         <canvas class="chart" baseChart
-                [data]="doughnutChartData"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [options]="doughnutChartOptions"
-                [colors]="doughnutChartColors">
-        </canvas>
-      </div>
-    </div>
-    <div class="child-2">
-      <div class="diff">
-        <div *ngFor="let user of userDeptMonth" class="diff-{{user.userName}}">
-          <h6 *ngIf="user.userName != 'none'">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
-          <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
-          <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="parent">
-    <div class="child-1">
-      <div class="chart-wrapper">
-        <canvas class="chart" baseChart
                 [data]="doughnutChartDataYear"
                 [labels]="doughnutChartLabelsYear"
                 [chartType]="doughnutChartTypeYear"
@@ -36,7 +14,29 @@
     <div class="child-2">
       <div class="diff">
         <div *ngFor="let user of userDeptYear" class="diff-{{user.userName}}">
-          <h6 *ngIf="user.userName != 'none'">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
+          <h6 *ngIf="user.userName != 'none'" class="value-{{user.userName}}">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
+          <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
+          <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="parent">
+    <div class="child-1">
+      <div class="chart-wrapper">
+        <canvas class="chart" baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType"
+                [options]="doughnutChartOptions"
+                [colors]="doughnutChartColors">
+        </canvas>
+      </div>
+    </div>
+    <div class="child-2">
+      <div class="diff">
+        <div *ngFor="let user of userDeptMonth" class="diff-{{user.userName}}">
+          <h6 *ngIf="user.userName != 'none'" class="value-{{user.userName}}">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
           <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
           <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
         </div>

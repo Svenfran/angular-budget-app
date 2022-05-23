@@ -254,7 +254,7 @@ export class SpendingsOverviewComponent implements OnInit {
   ];
 
   public doughnutChartOptions: any = {
-    responsive: false,
+    responsive: true,
     cutoutPercentage: '90',
     legend: false,
     // legend: { position: 'bottom' },
@@ -273,7 +273,7 @@ export class SpendingsOverviewComponent implements OnInit {
   ];
 
   public doughnutChartOptionsYear: any = {
-    responsive: false,
+    responsive: true,
     cutoutPercentage: '90',
     legend: false,
     // legend: { position: 'bottom' },

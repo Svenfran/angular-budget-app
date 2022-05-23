@@ -15,45 +15,19 @@ html > body {
   font-size: small;
 }
 
-.parent {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.child-1, .child-2 {
-  width: 250px;
-  position: absolute;
-}
-
-.child-2 {
-  top: 100px;
-}
-
 .table-wrapper {
   display: flex;
   background-color: white;
   flex-direction: column;
   border-radius: 5px;
   box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
-  padding: 32px;
+  padding: 32px 32px 16px 32px;
   margin: 16px 0;
   a {
     cursor: pointer;
     text-decoration: none;
     color: #222;
   }
-}
-
-.chart-wrapper {
-  width: 218px;
-  display: flex;
-  justify-content: center;
-  margin: 16px auto;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
-  padding: 16px 0;
 }
 
 
@@ -139,24 +113,54 @@ html > body {
 canvas.chart {
   // position: relative; 
   z-index:1;
+  width: 280px;
 }
 
-.chart-grid {
-  height: 200px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-  margin: 0 auto;
+
+.chart-info-box {
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  margin: 16px auto 0 auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+  padding: 16px 0;
+}
+
+.info-box {
+  width: 230px;
+  padding: 30px 60px 0px 60px;
+  p {
+    margin-bottom: 6px;
+  }
+}
+
+.chart-parant {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 150px;
+}
+
+.child1, .child2 {
+  position: absolute;
+}
+
+.child1 {
+  z-index: 99;
+  width: 280px;
+}
+
+.child2 {
+  width: 280px;
+  top: 100px;
 }
 
 @media(max-width: 768px) {
-  // .chart-grid {
-  //   grid-template-columns: 1fr 1fr;
-  //   height: 200px;
-  // }
-  
-  .chart-wrapper {
-    width: 200px;
+
+  .info-box {
+    padding: 30px 50px 0px 70px;
   }
 
 }

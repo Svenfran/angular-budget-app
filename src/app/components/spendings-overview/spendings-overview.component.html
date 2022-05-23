@@ -1,17 +1,16 @@
-<div class="chart-grid">
-  <div class="parent">
-    <div class="child-1">
-      <div class="chart-wrapper">
-        <canvas class="chart" baseChart
-                [data]="doughnutChartDataYear"
-                [labels]="doughnutChartLabelsYear"
-                [chartType]="doughnutChartTypeYear"
-                [options]="doughnutChartOptionsYear"
-                [colors]="doughnutChartColorsYear">
-        </canvas>
-      </div>
+
+<div class="chart-info-box">
+  <div class="chart-parent">
+    <div class="child1">
+      <canvas class="chart" baseChart
+              [data]="doughnutChartDataYear"
+              [labels]="doughnutChartLabelsYear"
+              [chartType]="doughnutChartTypeYear"
+              [options]="doughnutChartOptionsYear"
+              [colors]="doughnutChartColorsYear">
+      </canvas>
     </div>
-    <div class="child-2">
+    <div class="child2">
       <div class="diff">
         <div *ngFor="let user of userDeptYear" class="diff-{{user.userName}}">
           <h6 *ngIf="user.userName != 'none'" class="value-{{user.userName}}">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
@@ -21,29 +20,22 @@
       </div>
     </div>
   </div>
-  <div class="parent">
-    <div class="child-1">
-      <div class="chart-wrapper">
-        <canvas class="chart" baseChart
-                [data]="doughnutChartData"
-                [labels]="doughnutChartLabels"
-                [chartType]="doughnutChartType"
-                [options]="doughnutChartOptions"
-                [colors]="doughnutChartColors">
-        </canvas>
-      </div>
+  <div class="info-box" *ngFor="let user of userDeptYear">
+    <div class="d-flex justify-content-between">
+      <p style="color: grey; font-size: smaller">Sven</p>
+      <p style="font-size: smaller; font-weight: bold">{{user.totalS | currency: 'EUR': number: '1.2-2': 'de'}}</p>
     </div>
-    <div class="child-2">
-      <div class="diff">
-        <div *ngFor="let user of userDeptMonth" class="diff-{{user.userName}}">
-          <h6 *ngIf="user.userName != 'none'" class="value-{{user.userName}}">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
-          <p *ngIf="user.userName != 'none'">{{user.userName | titlecase}}</p>
-          <p *ngIf="user.userName == 'none'">{{user.msg}}</p>
-        </div>
-      </div>
+    <div class="d-flex justify-content-between">
+      <p style="color: grey; font-size: smaller">Montse</p>
+      <p style="font-size: smaller; font-weight: bold">{{user.totalM | currency: 'EUR': number: '1.2-2': 'de'}}</p>
+    </div>
+    <div>
+      <p style="color: grey; font-size: smaller; margin-top: 12px;">Gesamtausgaben</p>
+      <h6 style="font-size: 1.2rem; font-weight: bold;">{{user.total | currency: 'EUR': number: '1.2-2': 'de'}}</h6>
     </div>
   </div>
 </div>
+
 
 <div [routerLink]="['add']" class="plus-symbol">
   <div class="add">
@@ -74,16 +66,6 @@
         <!-- <td *ngIf="cart.diffMontse >= 0">--</td> -->
         <td *ngIf="cart.diffMontse == 0 && cart.diffSven == 0">€0.00</td>
         <td>{{cart.total | currency: 'EUR': number: '1.2-2': 'de'}}</td>
-      </tr>
-    </tbody>
-    <tbody style="border-top: 1.5px solid;">
-      <tr *ngFor="let user of userDeptYear">
-        <th>Gesamt:</th>
-        <th>{{user.totalS | currency: 'EUR': number: '1.2-2': 'de'}}</th>
-        <th>{{user.totalM | currency: 'EUR': number: '1.2-2': 'de'}}</th>
-        <th [ngStyle]="cssSven" *ngIf="user.userName == 'sven'">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</th>
-        <th [ngStyle]="cssMontse" *ngIf="user.userName == 'montse'">{{user.diff | currency: 'EUR': number: '1.2-2': 'de'}}</th>
-        <th>{{user.total | currency: 'EUR': number: '1.2-2': 'de'}}</th>
       </tr>
     </tbody>
   </table>

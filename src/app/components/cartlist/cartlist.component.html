@@ -24,9 +24,12 @@
         <td style="display: none;">{{cart.categoryName}}</td>
         <td *ngIf="cart.categoryName == 'Geschenke'" class="cat"><i style="color: #375e97; cursor: pointer;" class="fas fa-gift" (click)="filterTable(cart.categoryName)"></i></td>
         <td *ngIf="cart.categoryName == 'Auto'" class="cat"><i style="color: #fb6542; cursor: pointer;" class="fas fa-car" (click)="filterTable(cart.categoryName)" ></i></td>
-        <td *ngIf="cart.categoryName == 'Wohnung'" class="cat"><i style="color: #708d81; cursor: pointer;" class="fas fa-home cat" (click)="filterTable(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Wohnung'" class="cat"><i style="color: #708d81; cursor: pointer;" class="fas fa-home" (click)="filterTable(cart.categoryName)"></i></td>
         <td *ngIf="cart.categoryName == 'Urlaub'" class="cat"><i style="color: #ffbb00; cursor: pointer;" class="fas fa-plane-departure" (click)="filterTable(cart.categoryName)"></i></td>
-        <td *ngIf="cart.categoryName == 'Lebensmittel'" class="cat"><i style="color: #3f681c; cursor: pointer;" class="fas fa-utensils" (click)="filterTable(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Lebensmittel'" class="cat"><i style="color: #3f681c; cursor: pointer;" class="fas fa-shopping-cart" (click)="filterTable(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Ausgleichszahlung'" class="cat"><i style="color: #222; cursor: pointer;" class="fas fa-exchange-alt" (click)="filterTable(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Hygiene'" class="cat"><i style="color: #1EA896; cursor: pointer;" class="fas fa-pump-soap" (click)="filterTable(cart.categoryName)"></i></td>
+        <td *ngIf="cart.categoryName == 'Restaurant'" class="cat"><i style="color: #CBBF7A; cursor: pointer;" class="fas fa-utensils" (click)="filterTable(cart.categoryName)"></i></td>
         <td>{{cart.description}}</td>
         <td>{{cart.datePurchased}}</td>
         <td class="price">{{cart.price | currency: 'EUR': number: '1.2-2': 'de'}}</td>

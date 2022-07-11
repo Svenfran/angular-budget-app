@@ -242,25 +242,6 @@ export class SpendingsOverviewComponent implements OnInit {
   }
 
   //-----Charts-----------
-  // Month
-  public doughnutChartLabels = this.getChartData().chartUserNames;
-  public doughnutChartData = this.getChartData().chartSpendingsMonth;
-  public doughnutChartType = 'doughnut';
-  public doughnutChartColors: Array<any> = [
-    {
-      backgroundColor: [this.colorMontse, this.colorSven],
-      borderWidth: 0
-    }
-  ];
-
-  public doughnutChartOptions: any = {
-    responsive: true,
-    cutoutPercentage: '90',
-    legend: false,
-    // legend: { position: 'bottom' },
-    title: { display: true, text: this.months[this.getCurrentMonth()] + " " + this.getCurrentYear()}
-  };
-
   // Year
   public doughnutChartLabelsYear = this.getChartData().chartUserNames;
   public doughnutChartDataYear = this.getChartData().chartSpendingsYear;
